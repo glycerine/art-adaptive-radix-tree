@@ -371,6 +371,24 @@ func (t *Tree) Iterator(start, end []byte) *iterator {
 	}
 }
 
-type Ordered interface {
-	int | int8 | int16 | int32 | int64 | uint | uint8 | uint16 | uint32 | uint64 | uintptr | float32 | float64
+// At(i) lets us think of the tree as an
+// array, returning the i-th leaf
+// from the sorted leaf nodes, using
+// an efficient O(log N) time algorithm.
+// Here N is the size or count of elements
+// stored in the tree.
+//
+// At() uses the counted B-tree approach
+// described by Simon Tatham of PuTTY fame[1].
+// [1] Reference:
+// https://www.chiark.greenend.org.uk/~sgtatham/algorithms/cbtree.html
+func (t *Tree) At(i int) (lf *Leaf, ok bool) {
+	if t.SkipLocking {
+		lf, ok = t.root.at(i)
+		return
+	}
+	t.Rwmut.RLock()
+	lf, ok = t.root.at(i)
+	t.Rwmut.RUnlock()
+	return
 }

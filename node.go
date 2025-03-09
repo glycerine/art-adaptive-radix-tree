@@ -87,7 +87,7 @@ func (a *bnode) subn() int {
 	return a.inner.SubN
 }
 
-func (a *bnode) At(i int) (r *bnode, ok false) {
+func (a *bnode) at(i int) (r *Leaf, ok bool) {
 	if i < 0 {
 		return nil, false
 	}
@@ -95,24 +95,31 @@ func (a *bnode) At(i int) (r *bnode, ok false) {
 		if i != 0 {
 			return nil, false
 		}
-		return a, true
+		return a.leaf, true
 	}
 	// INVAR: a is inner
 	n := a.inner
+	if i >= n.SubN {
+		// i too large, out of bounds
+		return nil, false
+	}
 	tot := 0
 	pre := 0
 	subn := 0
 	key, b := n.Node.next(nil)
-	for node != nil {
+	for b != nil {
 		key, b = n.Node.next(&key)
 		subn = b.subn()
 		pre = tot
 		tot += subn
 		if i < tot {
-			return b.At(i - pre)
+			return b.at(i - pre)
 		}
 	}
-	// i too big, out of bounds
+	// i too big, out of bounds; but should
+	// never been reached because i >= n.SubN
+	// already checked above.
+	panic("unreachable") // TODO remove
 	return nil, false
 }
 
