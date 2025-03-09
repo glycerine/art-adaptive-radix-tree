@@ -392,3 +392,25 @@ func (t *Tree) At(i int) (lf *Leaf, ok bool) {
 	t.Rwmut.RUnlock()
 	return
 }
+
+// Atv(i) is like At(i) but returns the value
+// from the Leaf instead of the actual *Leaf itself,
+// simply for convenience.
+func (t *Tree) Atv(i int) (val any, ok bool) {
+	var lf *Leaf
+	if t.SkipLocking {
+		lf, ok = t.root.at(i)
+		if ok {
+			val = lf.Value
+			return
+		}
+		return
+	}
+	t.Rwmut.RLock()
+	lf, ok = t.root.at(i)
+	if ok {
+		val = lf.Value
+	}
+	t.Rwmut.RUnlock()
+	return
+}

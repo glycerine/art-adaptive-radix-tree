@@ -1799,10 +1799,19 @@ func Test511_At_index_the_tree_like_an_array(t *testing.T) {
 			if !ok {
 				panic(fmt.Sprintf("missing leaf!?! j=%v; i=%v not ok", j, i))
 			}
+			// test Atv too.
+			val, ok2 := tree.Atv(i)
+			if !ok2 {
+				panic(fmt.Sprintf("missing leaf!?! j=%v; i=%v not ok2", j, i))
+			}
 			got := string(lf.Key)
 			want := string(sorted[i])
 			if got != want {
 				panic(fmt.Sprintf("at j=%v; i=%v, want '%v'; got '%v'", j, i, want, got))
+			}
+			got2 := string(val.(Key))
+			if got2 != want {
+				panic(fmt.Sprintf("at j=%v; i=%v, want '%v'; got2 '%v'", j, i, want, got2))
 			}
 		}
 	}
