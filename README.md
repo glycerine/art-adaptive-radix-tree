@@ -1,11 +1,18 @@
-# Adaptive radix tree (ART)
+# the Adaptive radix tree (ART): sorted and speedy
 
-This project provides the art.Tree, which
-is a trie implementing the Adaptive 
-Radix Tree (ART) algorithm[1].
+This project provides an implemention
+of the Adaptive Radix Tree (ART) algorithm[1]. 
 
-An ART tree provides a sorted, key-value, in-memory
-dictionary. The ART tree provides both path compression
+Why? In read-heavy situations, ART
+trees can be faster than the built in Go 
+map or sync.Map while _also_ providing
+sorted-ordered-key lookups, range queries,
+and remaining goroutine safe if writing
+does become necessary. See the benchmarks below.
+
+An ART tree is a sorted, key-value, in-memory
+dictionary. It maps arbitrary []byte keys to
+an any value. The ART tree provides both path compression
 (vertical compression) and variable
 sized inner nodes (horizontal compression)
 for space-efficient fanout.
