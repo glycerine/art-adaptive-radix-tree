@@ -48,7 +48,7 @@ Concurrency: this ART implementation is
 goroutine safe, as it uses a sync.RWMutex
 synchronization. Thus it allows only a
 single writer at a time, and any number
-of readers. Readers will block until
+of readers when there is no writing. Readers will block until
 the writer is done, and thus they see
 a fully consistent view of the tree.
 The RWMutex approach was the fastest
