@@ -46,7 +46,7 @@ of same-key values as in the Leaf.Value field.
 
 Concurrency: this ART implementation is
 goroutine safe, as it uses a sync.RWMutex
-synchronization. Thus it allows only a
+for synchronization. Thus it allows only a
 single writer at a time, and any number
 of readers when there is no writing. Readers will block until
 the writer is done, and thus they see
