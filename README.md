@@ -4,7 +4,7 @@ This project provides an implemention
 of the Adaptive Radix Tree (ART) data structure[1]. 
 
 Why? In read-heavy situations, ART
-trees can be faster than the built in Go 
+trees can be competitive with the built in Go 
 map and sync.Maps while _also_ providing
 sorted-ordered-key lookups, range queries,
 and remaining goroutine safe if writing
