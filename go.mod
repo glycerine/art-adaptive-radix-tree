@@ -1,4 +1,4 @@
-module github.com/glycerine/art
+module github.com/glycerine/art-adaptive-radix-tree
 
 go 1.24.0
 
