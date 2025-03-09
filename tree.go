@@ -8,26 +8,75 @@ import (
 //go:generate greenpack
 
 // Tree is a trie that implements
-// the Adaptive Radix Tree (ART) algorithm [1].
-// This provides both path compression
-// and memory efficient child fanout.
+// the Adaptive Radix Tree (ART) algorithm
+// to provide a sorted, key-value, in-memory
+// dictionary[1]. The ART tree provides both path compression
+// (vertical compression) and variable
+// sized inner nodes (horizontal compression)
+// for space-efficient fanout.
 //
-// This ART implementation only allows
-// one writer at a time.
-// Benchmarking showed this to be the
-// fastest approach in our applications.
+// Path compression is particularly attractive in
+// situations where many keys have redudant
+// prefixes. This is the common case for
+// many ordered-key-value-map use cases, such
+// as database indexes and file-system hierarchies.
+// The Google File System paper, for example,
+// emphasizes the efficiencies obtained
+// by exploiting prefix compression in their
+// distributed file system[2]. FoundationDB's
+// new Redwood backend provides it as a feature[3],
+// and users wish the API could be improved by
+// offering it[4] in query result APIs.
 //
-// If a write is in progress, all readers
-// are blocked. If a read is in
-// progress, and no writer is waiting
-// for the lock, then other readers
-// can also RLock and proceed. The
-// SkipLocking flag can be set to
-// elide all locking.
+// As an alternative to red-black trees,
+// AVL trees, and other kinds of balanced binary trees,
+// ART is particularly attractive. Like
+// those trees, ART offers an ordered index
+// of sorted keys allowing efficient O(log N) access
+// for each unique key.
+//
+// Efficient key-range lookup and iteration, as well as the
+// ability to treat the tree as array using
+// integer indexes (based on the counted B-tree
+// idea[5]), make this ART tree implementation
+// particularly easy to use in practice.
+//
+// ART supports just a single value for each
+// key -- it is not a "multi-map" in the C++ sense.
+//
+// Concurrency: this ART implementation is
+// goroutine safe, as it uses a sync.RWMutex
+// synchronization. Thus it allows only a
+// single writer at a time, and any number
+// of readers. Readers will block until
+// the writer is done, and thus they see
+// a fully consistent view of the tree.
+// The RWMutex approach was the fastest
+// and easiest to reason about in our
+// applications without overly complicating
+// the code base. The SkipLocking flag can
+// be set to omit all locking if goroutine
+// coordination is provided by other means,
+// or unneeded (in the case of single goroutine
+// only access).
 //
 // [1] "The Adaptive Radix Tree: ARTful
 // Indexing for Main-Memory Databases"
 // by Viktor Leis, Alfons Kemper, Thomas Neumann.
+//
+// [2] "The Google File System"
+// SOSP’03, October 19–22, 2003, Bolton Landing, New York, USA.
+// by Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung.
+// https://pdos.csail.mit.edu/6.824/papers/gfs.pdf
+//
+// [3] "How does FoundationDB store keys with duplicate prefixes?"
+// https://forums.foundationdb.org/t/how-does-foundationdb-store-keys-with-duplicate-prefixes/1234
+//
+// [4] "Issue #2189: Prefix compress read range results"
+// https://github.com/apple/foundationdb/issues/2189
+//
+// [5] "Counted B-Trees"
+// https://www.chiark.greenend.org.uk/~sgtatham/algorithms/cbtree.html
 type Tree struct {
 	Rwmut sync.RWMutex `msg:"-"`
 
