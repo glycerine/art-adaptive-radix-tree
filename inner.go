@@ -155,6 +155,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 		// key is not found
 		return false, nil
 	}
+	n.SubN--
 
 	if next.isLeaf && next.leaf.cmp(key) {
 
@@ -170,7 +171,6 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 			deletedNode = n.Node.replace(idx, nil)
 			//vv(" after c.Node.replace, c = '%v'", c.String())
 			//vv("deletedNode = '%v'", deletedNode.String())
-			n.SubN--
 			// get the left node
 			leftKey, left := n.Node.next(nil)
 
@@ -203,7 +203,6 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 		if atmin && !isNode4 {
 			n.Node = n.Node.shrink()
 		}
-		n.SubN--
 		return true, deletedNode
 
 	} else if next.isLeaf {
@@ -214,9 +213,6 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 
 	deleted, deletedNode = next.del(key, nextDepth+1, next, func(bn *bnode) {
 		n.Node.replace(idx, bn)
-		if bn == nil {
-			n.SubN--
-		}
 	})
 	return deleted, deletedNode
 }

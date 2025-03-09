@@ -1630,7 +1630,7 @@ func Test510_SubN_maintained_for_At_indexing_(t *testing.T) {
 
 	// j=total number of leaves in the tree.
 	//for j := 1; j < 5000; j++ {
-	for j := 10; j < 11; j++ {
+	for j := 1; j < 1000; j++ {
 
 		//if j%100 == 0 {
 		//	//vv("on j = %v", j)
@@ -1657,7 +1657,7 @@ func Test510_SubN_maintained_for_At_indexing_(t *testing.T) {
 		}
 		sort.Sort(sliceByteSlice(sorted))
 
-		vv("verifying SubN after each insert")
+		//vv("verifying SubN after each insert")
 
 		var lastLeaf *Leaf
 		_ = lastLeaf
@@ -1675,14 +1675,18 @@ func Test510_SubN_maintained_for_At_indexing_(t *testing.T) {
 			verifySubN(tree.root)
 		}
 
-		vv("verifying SubN after removal")
+		//vv("verifying SubN after removal")
 		sz := tree.Size()
 
 		var key []byte
 
+		//vv("starting tree = '%v'", tree)
+
 		for i := range sz {
 			key = sorted[i]
 			tree.Remove(key)
+
+			//vv("after %v removal, tree = '%v'", i+1, tree)
 			// after each delete, verify correct SubN counts.
 			verifySubN(tree.root)
 		}
@@ -1695,6 +1699,9 @@ func Test510_SubN_maintained_for_At_indexing_(t *testing.T) {
 // has an accurate count of children, or panic.
 func verifySubN(root *bnode) (leafcount int) {
 
+	if root == nil {
+		return 0
+	}
 	if root.isLeaf {
 		return 1
 	} else {
@@ -1729,6 +1736,7 @@ func verifySubN(root *bnode) (leafcount int) {
 				}
 			}
 		}
+
 		if root.inner.SubN != leafcount {
 			panic(fmt.Sprintf("leafcount=%v, but n.SubN = %v", leafcount, root.inner.SubN))
 		}
