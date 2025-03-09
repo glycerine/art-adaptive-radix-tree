@@ -118,10 +118,7 @@ func (t *Tree) FlatString() string {
 	if t.root == nil {
 		return "empty tree"
 	}
-	// Keybyte should now always be maintained.
-	// set the Keybyte; side effect of dfs().
-	//for range dfs(t.root) {
-	//}
+
 	return fmt.Sprintf("tree of size %v: \n", sz) +
 		t.root.FlatString(0, -1)
 }

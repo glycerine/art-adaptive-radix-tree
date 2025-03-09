@@ -176,10 +176,7 @@ func (n *node4) full() bool {
 }
 
 func (n *node4) grow() Inode {
-	nn := &node16{
-		//compressed: append([]byte{}, n.compressed...),
-		//dep:        n.dep,
-	}
+	nn := &node16{}
 	nn.lth = n.lth
 	copy(nn.keys[:], n.keys[:])
 	copy(nn.children[:], n.children[:])

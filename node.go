@@ -80,6 +80,42 @@ func (a *bnode) first() (byte, *bnode) {
 	return a.inner.first()
 }
 
+func (a *bnode) subn() int {
+	if a.isLeaf {
+		return 1
+	}
+	return a.inner.SubN
+}
+
+func (a *bnode) At(i int) (r *bnode, ok false) {
+	if i < 0 {
+		return nil, false
+	}
+	if a.isLeaf {
+		if i != 0 {
+			return nil, false
+		}
+		return a, true
+	}
+	// INVAR: a is inner
+	n := a.inner
+	tot := 0
+	pre := 0
+	subn := 0
+	key, b := n.Node.next(nil)
+	for node != nil {
+		key, b = n.Node.next(&key)
+		subn = b.subn()
+		pre = tot
+		tot += subn
+		if i < tot {
+			return b.At(i - pre)
+		}
+	}
+	// i too big, out of bounds
+	return nil, false
+}
+
 func (a *bnode) String() string {
 	if a == nil {
 		return ""
