@@ -191,6 +191,10 @@ func TestTree_Bulk2_Saver_LinuxPaths(t *testing.T) {
 
 }
 
+const (
+	maxPrefixLen int = 10
+)
+
 // This is an incomplete, untested implementation
 // of the bulk-loading algorithm that the ART
 // paper describes as a proposed "optimization".

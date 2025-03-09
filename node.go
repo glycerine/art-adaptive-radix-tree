@@ -8,10 +8,6 @@ import (
 
 var _ = sync.RWMutex{}
 
-const (
-	maxPrefixLen int = 10
-)
-
 // turn off n4/n16/... fine grained locking,
 // depending only on the Inner and Leaf RWMutex.
 type artlock = nolock
