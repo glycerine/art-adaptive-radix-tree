@@ -88,6 +88,7 @@ func (a *bnode) subn() int {
 }
 
 func (a *bnode) at(i int) (r *Leaf, ok bool) {
+	vv("at(i=%v) called on a='%v'", i, a)
 	if i < 0 {
 		return nil, false
 	}
@@ -108,13 +109,14 @@ func (a *bnode) at(i int) (r *Leaf, ok bool) {
 	subn := 0
 	key, b := n.Node.next(nil)
 	for b != nil {
-		key, b = n.Node.next(&key)
-		subn = b.subn()
+		subn = b.subn() // leaf returns 1
 		pre = tot
 		tot += subn
+		vv("pre=%v; tot=%v; i=%v; subn=%v", pre, tot, i, subn)
 		if i < tot {
 			return b.at(i - pre)
 		}
+		key, b = n.Node.next(&key)
 	}
 	// i too big, out of bounds; but should
 	// never been reached because i >= n.SubN

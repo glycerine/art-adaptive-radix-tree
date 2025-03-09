@@ -1625,7 +1625,7 @@ func Test508_ArtTree_SearchMod_random_numbered_LT_(t *testing.T) {
 	}
 }
 
-// SubN updates and indexing
+// SubN updates
 func Test510_SubN_maintained_for_At_indexing_(t *testing.T) {
 
 	// j=total number of leaves in the tree.
@@ -1742,4 +1742,68 @@ func verifySubN(root *bnode) (leafcount int) {
 		}
 	}
 	return leafcount
+}
+
+// At(i) returns the ith-element in the sorted tree.
+func Test511_At_index_the_tree_like_an_array(t *testing.T) {
+
+	// j=total number of leaves in the tree.
+	//for j := 1; j < 5000; j++ {
+	for j := 1; j < 10; j++ {
+
+		//if j%100 == 0 {
+		//	//vv("on j = %v", j)
+		//}
+
+		tree := NewArtTree()
+
+		var seed32 [32]byte
+		chacha8 := mathrand2.NewChaCha8(seed32)
+
+		var sorted [][]byte
+		var N uint64 = 100000 // domain for leaf keys.
+
+		// j = number of leaves in the tree.
+
+		used := make(map[int]bool) // tree may dedup, but sorted needs too.
+		for range j {
+			r := int(chacha8.Uint64() % N)
+			if used[r] {
+				continue
+			}
+			used[r] = true
+			sorted = append(sorted, []byte(fmt.Sprintf("%06d", r)))
+		}
+		sort.Sort(sliceByteSlice(sorted))
+
+		var lastLeaf *Leaf
+		_ = lastLeaf
+		for i, w := range sorted {
+
+			key2 := Key(append([]byte{}, w...))
+			lf := NewLeaf(key2, key2, nil)
+			if tree.InsertLeaf(lf) {
+				// make sure leaves are unique.
+				t.Fatalf("i=%v, could not add '%v', already in tree", i, string(w))
+			}
+			lastLeaf = lf
+		}
+
+		//vv("verifying SubN after removal")
+		sz := tree.Size()
+
+		vv("starting tree = '%v'", tree)
+
+		for i := range sz {
+			lf, ok := tree.At(i)
+			if !ok {
+				panic(fmt.Sprintf("missing leaf!?! j=%v; i=%v not ok", j, i))
+			}
+			got := string(lf.Key)
+			want := string(sorted[i])
+			if got != want {
+				panic(fmt.Sprintf("at j=%v; i=%v, want '%v'; got '%v'", j, i, want, got))
+			}
+		}
+	}
 }
