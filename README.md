@@ -1,14 +1,22 @@
 # the Adaptive radix tree (ART): sorted and speedy
 
 This project provides an implemention
-of the Adaptive Radix Tree (ART) algorithm[1]. 
+of the Adaptive Radix Tree (ART) data structure[1]. 
 
 Why? In read-heavy situations, ART
 trees can be faster than the built in Go 
-map or sync.Map while _also_ providing
+map and sync.Maps while _also_ providing
 sorted-ordered-key lookups, range queries,
 and remaining goroutine safe if writing
-does become necessary. See the benchmarks below.
+does become necessary (see the benchmarks 
+below). Modern analytic-oriented databases 
+like Tableau and DuckDB leverage ART trees
+to implement their indexes because they
+provide significant speedups[6].
+They were designed in 2013 by the German academic
+computer scientists whose HyPer project
+was bought to provide the backend engine
+for Tableau[7].
 
 An ART tree is a sorted, key-value, in-memory
 dictionary. It maps arbitrary []byte keys to
@@ -49,7 +57,7 @@ This makes it simple to use and implement.
 Note that the user can store any value, so 
 being a unique-key-map is not really a limitation.
 The user can simply store a list or array
-of same-key values as in the Leaf.Value field.
+of same-key values in the Leaf.Value field.
 
 Concurrency: this ART implementation is
 goroutine safe, as it uses a sync.RWMutex
@@ -70,6 +78,7 @@ only access).
 [1] "The Adaptive Radix Tree: ARTful
 Indexing for Main-Memory Databases"
 by Viktor Leis, Alfons Kemper, Thomas Neumann.
+https://db.in.tum.de/~leis/papers/ART.pdf
 
 [2] "The Google File System"
 SOSP’03, October 19–22, 2003, Bolton Landing, New York, USA.
@@ -85,6 +94,10 @@ https://github.com/apple/foundationdb/issues/2189
 [5] "Counted B-Trees"
 https://www.chiark.greenend.org.uk/~sgtatham/algorithms/cbtree.html
 
+[6] "Persistent Storage of Adaptive Radix Trees in DuckDB"
+https://duckdb.org/2022/07/27/art-storage.html
+
+[7] https://hyper-db.de/  https://tableau.github.io/hyper-db/journey
 
 Docs: https://pkg.go.dev/github.com/glycerine/art-adaptive-radix-tree
 
