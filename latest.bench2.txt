@@ -1,0 +1,173 @@
+-*- mode: compilation; default-directory: "~/sync-adaptive-radix-tree/" -*-
+Compilation started at Thu Mar  6 23:08:39
+
+go test -v -run=blah -bench=ReadWrite -benchmem
+goos: darwin
+goarch: amd64
+pkg: github.com/glycerine/sync-adaptive-radix-tree
+cpu: Intel(R) Core(TM) i7-1068NG7 CPU @ 2.30GHz
+BenchmarkSklReadWrite
+BenchmarkSklReadWrite/frac_0
+BenchmarkSklReadWrite/frac_0-8                	 4162852	       370.8 ns/op	      46 B/op	       5 allocs/op
+BenchmarkSklReadWrite/frac_1
+BenchmarkSklReadWrite/frac_1-8                	 4566799	       381.4 ns/op	      49 B/op	       6 allocs/op
+BenchmarkSklReadWrite/frac_2
+BenchmarkSklReadWrite/frac_2-8                	 5240487	       358.9 ns/op	      43 B/op	       5 allocs/op
+BenchmarkSklReadWrite/frac_3
+BenchmarkSklReadWrite/frac_3-8                	 5220502	       335.8 ns/op	      36 B/op	       4 allocs/op
+BenchmarkSklReadWrite/frac_4
+BenchmarkSklReadWrite/frac_4-8                	 5824624	       326.2 ns/op	      33 B/op	       4 allocs/op
+BenchmarkSklReadWrite/frac_5
+BenchmarkSklReadWrite/frac_5-8                	 7870168	       326.5 ns/op	      24 B/op	       3 allocs/op
+BenchmarkSklReadWrite/frac_6
+BenchmarkSklReadWrite/frac_6-8                	 8004682	       261.3 ns/op	      14 B/op	       1 allocs/op
+BenchmarkSklReadWrite/frac_7
+BenchmarkSklReadWrite/frac_7-8                	 8629944	       244.6 ns/op	       9 B/op	       1 allocs/op
+BenchmarkSklReadWrite/frac_8
+BenchmarkSklReadWrite/frac_8-8                	10655348	       202.1 ns/op	       4 B/op	       0 allocs/op
+BenchmarkSklReadWrite/frac_9
+BenchmarkSklReadWrite/frac_9-8                	12900493	       167.4 ns/op	       2 B/op	       0 allocs/op
+BenchmarkSklReadWrite/frac_10
+BenchmarkSklReadWrite/frac_10-8               	255978423	         4.754 ns/op	       0 B/op	       0 allocs/op
+BenchmarkArtReadWrite
+BenchmarkArtReadWrite/frac_0
+BenchmarkArtReadWrite/frac_0-8                	 2371479	       579.3 ns/op	     143 B/op	       4 allocs/op
+BenchmarkArtReadWrite/frac_1
+BenchmarkArtReadWrite/frac_1-8                	 2871612	       509.6 ns/op	     129 B/op	       3 allocs/op
+BenchmarkArtReadWrite/frac_2
+BenchmarkArtReadWrite/frac_2-8                	 3197023	       449.9 ns/op	     115 B/op	       3 allocs/op
+BenchmarkArtReadWrite/frac_3
+BenchmarkArtReadWrite/frac_3-8                	 3313378	       405.0 ns/op	     101 B/op	       3 allocs/op
+BenchmarkArtReadWrite/frac_4
+BenchmarkArtReadWrite/frac_4-8                	 3549927	       427.8 ns/op	      88 B/op	       3 allocs/op
+BenchmarkArtReadWrite/frac_5
+BenchmarkArtReadWrite/frac_5-8                	 3673616	       383.3 ns/op	      74 B/op	       3 allocs/op
+BenchmarkArtReadWrite/frac_6
+BenchmarkArtReadWrite/frac_6-8                	 4136496	       463.9 ns/op	      60 B/op	       3 allocs/op
+BenchmarkArtReadWrite/frac_7
+BenchmarkArtReadWrite/frac_7-8                	 4473478	       396.3 ns/op	      45 B/op	       2 allocs/op
+BenchmarkArtReadWrite/frac_8
+BenchmarkArtReadWrite/frac_8-8                	 5002401	       382.1 ns/op	      31 B/op	       2 allocs/op
+BenchmarkArtReadWrite/frac_9
+BenchmarkArtReadWrite/frac_9-8                	 5244824	       332.6 ns/op	      16 B/op	       2 allocs/op
+BenchmarkArtReadWrite/frac_10
+BenchmarkArtReadWrite/frac_10-8               	26685288	        49.83 ns/op	       0 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_0
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_0-8         	 5375673	       277.3 ns/op	      26 B/op	       1 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_1
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_1-8         	 5820200	       276.2 ns/op	      24 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_2
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_2-8         	 6148408	       211.2 ns/op	      22 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_3
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_3-8         	 7150006	       196.8 ns/op	      19 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_4
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_4-8         	 7847625	       192.0 ns/op	      17 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_5
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_5-8         	 8581459	       194.0 ns/op	      15 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_6
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_6-8         	 8808580	       168.7 ns/op	      14 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_7
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_7-8         	 9927459	       170.3 ns/op	       7 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_8
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_8-8         	 9807919	       161.6 ns/op	       6 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_9
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_9-8         	 8940655	       160.1 ns/op	       2 B/op	       0 allocs/op
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_10
+BenchmarkReadWrite_map_RWMutex_wrapped/frac_10-8        	35318106	        34.04 ns/op	       0 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_0
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_0-8      	 3372945	       347.2 ns/op	     128 B/op	       1 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_1
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_1-8      	 3909326	       312.6 ns/op	     120 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_2
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_2-8      	 5318517	       360.5 ns/op	     157 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_3
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_3-8      	 5529562	       341.1 ns/op	     146 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_4
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_4-8      	 5787279	       258.2 ns/op	      77 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_5
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_5-8      	 6065157	       243.0 ns/op	      70 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_6
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_6-8      	 8350885	       228.4 ns/op	      51 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_7
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_7-8      	 9374116	       210.1 ns/op	      45 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_8
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_8-8      	13115431	       194.2 ns/op	      32 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_9
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_9-8      	19455470	       176.9 ns/op	      21 B/op	       0 allocs/op
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_10
+BenchmarkReadWrite_Map_NoMutex_NoParallel/frac_10-8     	91613277	        12.90 ns/op	       0 B/op	       0 allocs/op
+BenchmarkReadWrite_RedBlackTree
+BenchmarkReadWrite_RedBlackTree/frac_0
+BenchmarkReadWrite_RedBlackTree/frac_0-8                	 1000000	      1631 ns/op	      87 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_1
+BenchmarkReadWrite_RedBlackTree/frac_1-8                	 1000000	      1548 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_2
+BenchmarkReadWrite_RedBlackTree/frac_2-8                	 1000000	      1527 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_3
+BenchmarkReadWrite_RedBlackTree/frac_3-8                	 1000000	      1502 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_4
+BenchmarkReadWrite_RedBlackTree/frac_4-8                	 1000000	      1534 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_5
+BenchmarkReadWrite_RedBlackTree/frac_5-8                	 1000000	      1530 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_6
+BenchmarkReadWrite_RedBlackTree/frac_6-8                	 1000000	      1510 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_7
+BenchmarkReadWrite_RedBlackTree/frac_7-8                	 1000000	      1485 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_8
+BenchmarkReadWrite_RedBlackTree/frac_8-8                	 1000000	      1463 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_9
+BenchmarkReadWrite_RedBlackTree/frac_9-8                	 1000000	      1470 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWrite_RedBlackTree/frac_10
+BenchmarkReadWrite_RedBlackTree/frac_10-8               	 1000000	      1472 ns/op	      40 B/op	       2 allocs/op
+BenchmarkReadWriteSyncMap
+BenchmarkReadWriteSyncMap/frac_0
+BenchmarkReadWriteSyncMap/frac_0-8                      	14011383	       131.0 ns/op	     103 B/op	       4 allocs/op
+BenchmarkReadWriteSyncMap/frac_1
+BenchmarkReadWriteSyncMap/frac_1-8                      	13535026	       126.3 ns/op	      93 B/op	       3 allocs/op
+BenchmarkReadWriteSyncMap/frac_2
+BenchmarkReadWriteSyncMap/frac_2-8                      	15248708	       116.4 ns/op	      82 B/op	       3 allocs/op
+BenchmarkReadWriteSyncMap/frac_3
+BenchmarkReadWriteSyncMap/frac_3-8                      	18095422	       119.6 ns/op	      72 B/op	       2 allocs/op
+BenchmarkReadWriteSyncMap/frac_4
+BenchmarkReadWriteSyncMap/frac_4-8                      	18085278	        92.75 ns/op	      62 B/op	       2 allocs/op
+BenchmarkReadWriteSyncMap/frac_5
+BenchmarkReadWriteSyncMap/frac_5-8                      	22661469	        89.13 ns/op	      51 B/op	       2 allocs/op
+BenchmarkReadWriteSyncMap/frac_6
+BenchmarkReadWriteSyncMap/frac_6-8                      	26253662	        75.34 ns/op	      41 B/op	       1 allocs/op
+BenchmarkReadWriteSyncMap/frac_7
+BenchmarkReadWriteSyncMap/frac_7-8                      	32246500	        67.00 ns/op	      31 B/op	       1 allocs/op
+BenchmarkReadWriteSyncMap/frac_8
+BenchmarkReadWriteSyncMap/frac_8-8                      	27011906	        50.21 ns/op	      20 B/op	       0 allocs/op
+BenchmarkReadWriteSyncMap/frac_9
+BenchmarkReadWriteSyncMap/frac_9-8                      	53264936	        40.80 ns/op	      10 B/op	       0 allocs/op
+BenchmarkReadWriteSyncMap/frac_10
+BenchmarkReadWriteSyncMap/frac_10-8                     	196006933	         5.935 ns/op	       0 B/op	       0 allocs/op
+BenchmarkReadWriteCtrie
+BenchmarkReadWriteCtrie/frac_0
+BenchmarkReadWriteCtrie/frac_0-8                        	 3033902	       574.5 ns/op	     382 B/op	      12 allocs/op
+BenchmarkReadWriteCtrie/frac_1
+BenchmarkReadWriteCtrie/frac_1-8                        	 2901999	       449.7 ns/op	     365 B/op	      11 allocs/op
+BenchmarkReadWriteCtrie/frac_2
+BenchmarkReadWriteCtrie/frac_2-8                        	 3255434	       495.9 ns/op	     315 B/op	      10 allocs/op
+BenchmarkReadWriteCtrie/frac_3
+BenchmarkReadWriteCtrie/frac_3-8                        	 4263014	       395.6 ns/op	     286 B/op	       9 allocs/op
+BenchmarkReadWriteCtrie/frac_4
+BenchmarkReadWriteCtrie/frac_4-8                        	 4345923	       352.8 ns/op	     258 B/op	       8 allocs/op
+BenchmarkReadWriteCtrie/frac_5
+BenchmarkReadWriteCtrie/frac_5-8                        	 4935391	       317.1 ns/op	     220 B/op	       7 allocs/op
+BenchmarkReadWriteCtrie/frac_6
+BenchmarkReadWriteCtrie/frac_6-8                        	 5236272	       273.1 ns/op	     189 B/op	       6 allocs/op
+BenchmarkReadWriteCtrie/frac_7
+BenchmarkReadWriteCtrie/frac_7-8                        	 8048592	       230.4 ns/op	     143 B/op	       4 allocs/op
+BenchmarkReadWriteCtrie/frac_8
+BenchmarkReadWriteCtrie/frac_8-8                        	10268546	       189.8 ns/op	     113 B/op	       3 allocs/op
+BenchmarkReadWriteCtrie/frac_9
+BenchmarkReadWriteCtrie/frac_9-8                        	13585795	       137.4 ns/op	      80 B/op	       2 allocs/op
+BenchmarkReadWriteCtrie/frac_10
+BenchmarkReadWriteCtrie/frac_10-8                       	26580741	        38.59 ns/op	      52 B/op	       2 allocs/op
+PASS
+ok  	github.com/glycerine/sync-adaptive-radix-tree	161.298s
+
+Compilation finished at Thu Mar  6 23:11:21

@@ -1,0 +1,167 @@
+-*- mode: compilation; default-directory: "~/go/src/github.com/glycerine/sync-adaptive-radix-tree/" -*-
+Compilation started at Mon Feb 24 15:14:34
+
+go test -v -run=blah -bench=. -benchmem
+goos: darwin
+goarch: amd64
+pkg: github.com/WenyXu/sync-adaptive-radix-tree
+cpu: Intel(R) Core(TM) i7-1068NG7 CPU @ 2.30GHz
+BenchmarkWordsArtTreeInsert
+BenchmarkWordsArtTreeInsert-8           	      19	  62542848 ns/op	46716623 B/op	  733388 allocs/op
+BenchmarkWordsArtTreeSearch
+BenchmarkWordsArtTreeSearch-8           	      43	  25399642 ns/op	       0 B/op	       0 allocs/op
+BenchmarkWordsArtTreeRemove
+BenchmarkWordsArtTreeRemove-8           	    1351	    879004 ns/op	   24506 B/op	    1053 allocs/op
+BenchmarkUUIDsArtTreeInsert
+BenchmarkUUIDsArtTreeInsert-8           	      33	  35159579 ns/op	17261445 B/op	  279939 allocs/op
+BenchmarkUUIDsArtTreeSearch
+BenchmarkUUIDsArtTreeSearch-8           	      56	  19131606 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMapSearch
+BenchmarkMapSearch-8                    	      88	  15163849 ns/op	       1 B/op	       0 allocs/op
+BenchmarkMapInsert
+BenchmarkMapInsert-8                    	      18	  71450188 ns/op	43792049 B/op	  473538 allocs/op
+BenchmarkMapRemove
+BenchmarkMapRemove-8                    	     468	   2512238 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMarshalMsgTestBytes
+BenchmarkMarshalMsgTestBytes-8          	46347105	        25.49 ns/op	      24 B/op	       1 allocs/op
+BenchmarkAppendMsgTestBytes
+BenchmarkAppendMsgTestBytes-8           	241188637	         4.927 ns/op	 202.95 MB/s	       0 B/op	       0 allocs/op
+BenchmarkUnmarshalTestBytes
+BenchmarkUnmarshalTestBytes-8           	72462157	        16.94 ns/op	  59.03 MB/s	       0 B/op	       0 allocs/op
+BenchmarkEncodeTestBytes
+BenchmarkEncodeTestBytes-8              	35169336	        34.26 ns/op	 379.45 MB/s	      16 B/op	       1 allocs/op
+BenchmarkDecodeTestBytes
+BenchmarkDecodeTestBytes-8              	26055955	        45.50 ns/op	 285.71 MB/s	       0 B/op	       0 allocs/op
+BenchmarkMarshalMsgLeaf
+BenchmarkMarshalMsgLeaf-8               	39470557	        33.06 ns/op	      64 B/op	       1 allocs/op
+BenchmarkAppendMsgLeaf
+BenchmarkAppendMsgLeaf-8                	181547781	         6.776 ns/op	 147.59 MB/s	       0 B/op	       0 allocs/op
+BenchmarkUnmarshalLeaf
+BenchmarkUnmarshalLeaf-8                	34049433	        35.13 ns/op	  28.46 MB/s	       0 B/op	       0 allocs/op
+BenchmarkEncodeLeaf
+BenchmarkEncodeLeaf-8                   	38177092	        30.73 ns/op	 260.29 MB/s	       4 B/op	       1 allocs/op
+BenchmarkDecodeLeaf
+BenchmarkDecodeLeaf-8                   	17306402	        67.15 ns/op	 119.14 MB/s	       0 B/op	       0 allocs/op
+BenchmarkSklReadWrite
+BenchmarkSklReadWrite/frac_0
+BenchmarkSklReadWrite/frac_0-8          	 3504274	       462.0 ns/op	      56 B/op	       7 allocs/op
+BenchmarkSklReadWrite/frac_1
+BenchmarkSklReadWrite/frac_1-8          	 3558798	       419.6 ns/op	      51 B/op	       6 allocs/op
+BenchmarkSklReadWrite/frac_2
+BenchmarkSklReadWrite/frac_2-8          	 3691407	       429.4 ns/op	      46 B/op	       5 allocs/op
+BenchmarkSklReadWrite/frac_3
+BenchmarkSklReadWrite/frac_3-8          	 3754929	       370.8 ns/op	      41 B/op	       5 allocs/op
+BenchmarkSklReadWrite/frac_4
+BenchmarkSklReadWrite/frac_4-8          	 4212926	       388.7 ns/op	      36 B/op	       4 allocs/op
+BenchmarkSklReadWrite/frac_5
+BenchmarkSklReadWrite/frac_5-8          	 4850334	       340.4 ns/op	      32 B/op	       4 allocs/op
+BenchmarkSklReadWrite/frac_6
+BenchmarkSklReadWrite/frac_6-8          	 4962159	       300.7 ns/op	      27 B/op	       3 allocs/op
+BenchmarkSklReadWrite/frac_7
+BenchmarkSklReadWrite/frac_7-8          	 6362594	       298.4 ns/op	      22 B/op	       2 allocs/op
+BenchmarkSklReadWrite/frac_8
+BenchmarkSklReadWrite/frac_8-8          	 6876218	       258.5 ns/op	      17 B/op	       2 allocs/op
+BenchmarkSklReadWrite/frac_9
+BenchmarkSklReadWrite/frac_9-8          	 9973110	       228.1 ns/op	      12 B/op	       1 allocs/op
+BenchmarkSklReadWrite/frac_10
+BenchmarkSklReadWrite/frac_10-8         	163802796	         7.037 ns/op	       8 B/op	       1 allocs/op
+BenchmarkArtReadWrite
+BenchmarkArtReadWrite/frac_0
+BenchmarkArtReadWrite/frac_0-8          	 6633904	       176.0 ns/op	     200 B/op	       3 allocs/op
+BenchmarkArtReadWrite/frac_1
+BenchmarkArtReadWrite/frac_1-8          	 7335051	       201.0 ns/op	     181 B/op	       3 allocs/op
+BenchmarkArtReadWrite/frac_2
+BenchmarkArtReadWrite/frac_2-8          	 6929006	       154.0 ns/op	     170 B/op	       2 allocs/op
+BenchmarkArtReadWrite/frac_3
+BenchmarkArtReadWrite/frac_3-8          	 8124223	       158.3 ns/op	     148 B/op	       2 allocs/op
+BenchmarkArtReadWrite/frac_4
+BenchmarkArtReadWrite/frac_4-8          	10126700	       145.8 ns/op	     123 B/op	       2 allocs/op
+BenchmarkArtReadWrite/frac_5
+BenchmarkArtReadWrite/frac_5-8          	13678851	       137.1 ns/op	     103 B/op	       2 allocs/op
+BenchmarkArtReadWrite/frac_6
+BenchmarkArtReadWrite/frac_6-8          	11605238	       159.2 ns/op	      93 B/op	       1 allocs/op
+BenchmarkArtReadWrite/frac_7
+BenchmarkArtReadWrite/frac_7-8          	14052744	       141.2 ns/op	      72 B/op	       1 allocs/op
+BenchmarkArtReadWrite/frac_8
+BenchmarkArtReadWrite/frac_8-8          	18607390	       104.3 ns/op	      49 B/op	       1 allocs/op
+BenchmarkArtReadWrite/frac_9
+BenchmarkArtReadWrite/frac_9-8          	27018709	        80.35 ns/op	      24 B/op	       1 allocs/op
+BenchmarkArtReadWrite/frac_10
+BenchmarkArtReadWrite/frac_10-8         	100000000	        11.77 ns/op	       8 B/op	       1 allocs/op
+BenchmarkArtLinuxPaths
+BenchmarkArtLinuxPaths/frac_0
+BenchmarkArtLinuxPaths/frac_0-8         	     120	  10087539 ns/op	 9832541 B/op	  188513 allocs/op
+BenchmarkArtLinuxPaths/frac_1
+BenchmarkArtLinuxPaths/frac_1-8         	     106	  10632435 ns/op	 9842877 B/op	  188637 allocs/op
+BenchmarkReadWriteMap
+BenchmarkReadWriteMap/frac_0
+BenchmarkReadWriteMap/frac_0-8          	 2725347	       513.6 ns/op	     163 B/op	       2 allocs/op
+BenchmarkReadWriteMap/frac_1
+BenchmarkReadWriteMap/frac_1-8          	 2889210	       420.8 ns/op	     154 B/op	       1 allocs/op
+BenchmarkReadWriteMap/frac_2
+BenchmarkReadWriteMap/frac_2-8          	 3599781	       379.9 ns/op	     126 B/op	       1 allocs/op
+BenchmarkReadWriteMap/frac_3
+BenchmarkReadWriteMap/frac_3-8          	 3645686	       377.8 ns/op	     124 B/op	       1 allocs/op
+BenchmarkReadWriteMap/frac_4
+BenchmarkReadWriteMap/frac_4-8          	 3762495	       375.1 ns/op	     118 B/op	       1 allocs/op
+BenchmarkReadWriteMap/frac_5
+BenchmarkReadWriteMap/frac_5-8          	 4569207	       369.7 ns/op	     100 B/op	       1 allocs/op
+BenchmarkReadWriteMap/frac_6
+BenchmarkReadWriteMap/frac_6-8          	 3935078	       340.6 ns/op	      62 B/op	       1 allocs/op
+BenchmarkReadWriteMap/frac_7
+BenchmarkReadWriteMap/frac_7-8          	 4381164	       337.7 ns/op	      56 B/op	       1 allocs/op
+BenchmarkReadWriteMap/frac_8
+BenchmarkReadWriteMap/frac_8-8          	 4970144	       293.8 ns/op	      29 B/op	       1 allocs/op
+BenchmarkReadWriteMap/frac_9
+BenchmarkReadWriteMap/frac_9-8          	 5946272	       302.8 ns/op	      25 B/op	       1 allocs/op
+BenchmarkReadWriteMap/frac_10
+BenchmarkReadWriteMap/frac_10-8         	30882270	        39.38 ns/op	       8 B/op	       1 allocs/op
+BenchmarkReadWriteSyncMap
+BenchmarkReadWriteSyncMap/frac_0
+BenchmarkReadWriteSyncMap/frac_0-8      	 7432266	       199.6 ns/op	     156 B/op	       5 allocs/op
+BenchmarkReadWriteSyncMap/frac_1
+BenchmarkReadWriteSyncMap/frac_1-8      	 7645388	       212.8 ns/op	     142 B/op	       4 allocs/op
+BenchmarkReadWriteSyncMap/frac_2
+BenchmarkReadWriteSyncMap/frac_2-8      	 7697181	       182.6 ns/op	     127 B/op	       4 allocs/op
+BenchmarkReadWriteSyncMap/frac_3
+BenchmarkReadWriteSyncMap/frac_3-8      	 8451846	       189.1 ns/op	     112 B/op	       4 allocs/op
+BenchmarkReadWriteSyncMap/frac_4
+BenchmarkReadWriteSyncMap/frac_4-8      	10171338	       156.4 ns/op	      97 B/op	       3 allocs/op
+BenchmarkReadWriteSyncMap/frac_5
+BenchmarkReadWriteSyncMap/frac_5-8      	15333591	       161.3 ns/op	      82 B/op	       3 allocs/op
+BenchmarkReadWriteSyncMap/frac_6
+BenchmarkReadWriteSyncMap/frac_6-8      	17279500	       133.2 ns/op	      67 B/op	       2 allocs/op
+BenchmarkReadWriteSyncMap/frac_7
+BenchmarkReadWriteSyncMap/frac_7-8      	16016091	       106.5 ns/op	      53 B/op	       2 allocs/op
+BenchmarkReadWriteSyncMap/frac_8
+BenchmarkReadWriteSyncMap/frac_8-8      	24805759	       111.1 ns/op	      38 B/op	       1 allocs/op
+BenchmarkReadWriteSyncMap/frac_9
+BenchmarkReadWriteSyncMap/frac_9-8      	27753872	        70.49 ns/op	      23 B/op	       1 allocs/op
+BenchmarkReadWriteSyncMap/frac_10
+BenchmarkReadWriteSyncMap/frac_10-8     	100000000	        11.87 ns/op	       8 B/op	       1 allocs/op
+BenchmarkArtConcurrentInsert
+BenchmarkArtConcurrentInsert-8          	 4950691	       226.9 ns/op	     218 B/op	       3 allocs/op
+BenchmarkAnotherArtConcurrentInsert
+BenchmarkAnotherArtConcurrentInsert-8   	 8619157	       303.7 ns/op	     155 B/op	       3 allocs/op
+BenchmarkBtreeConcurrentInsert
+BenchmarkBtreeConcurrentInsert-8        	 1000000	      1099 ns/op	      76 B/op	       1 allocs/op
+BenchmarkMarshalMsgTree
+BenchmarkMarshalMsgTree-8               	39865434	        30.15 ns/op	      24 B/op	       1 allocs/op
+BenchmarkAppendMsgTree
+BenchmarkAppendMsgTree-8                	231560523	         5.664 ns/op	 176.55 MB/s	       0 B/op	       0 allocs/op
+BenchmarkUnmarshalTree
+BenchmarkUnmarshalTree-8                	68038071	        17.53 ns/op	  57.04 MB/s	       0 B/op	       0 allocs/op
+BenchmarkEncodeTree
+BenchmarkEncodeTree-8                   	38630038	        30.59 ns/op	 261.55 MB/s	       4 B/op	       1 allocs/op
+BenchmarkDecodeTree
+BenchmarkDecodeTree-8                   	27379204	        43.13 ns/op	 185.51 MB/s	       0 B/op	       0 allocs/op
+BenchmarkWordsBTreeInsert
+BenchmarkWordsBTreeInsert-8             	      18	  67113536 ns/op	22970408 B/op	    3221 allocs/op
+BenchmarkWordsArtInsert
+BenchmarkWordsArtInsert-8               	      16	  63172697 ns/op	46716591 B/op	  733387 allocs/op
+BenchmarkWordsMapInsert
+BenchmarkWordsMapInsert-8               	      28	  39293681 ns/op	37794206 B/op	    1868 allocs/op
+PASS
+ok  	github.com/WenyXu/sync-adaptive-radix-tree	165.883s
+
+Compilation finished at Mon Feb 24 15:17:20
