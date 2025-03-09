@@ -69,7 +69,7 @@ key -- it is not a "multi-map" in the C++ sense.
 This makes it simple to use and implement. 
 Note that the user can store any value, so 
 being a unique-key-map is not really a limitation.
-The user can simply store a list or array
+The user can simply point to a struct, slice or map
 of same-key values in the Leaf.Value field.
 
 Concurrency: this ART implementation is
