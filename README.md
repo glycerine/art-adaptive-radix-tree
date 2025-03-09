@@ -2,6 +2,8 @@
 
 This repository provides an implementation of the Adaptive Radix Tree.
 
+docs: https://pkg.go.dev/github.com/glycerine/art-adaptive-radix-tree
+
 The API is in the tree.go file.
 ~~~
 // Tree is a trie that implements
