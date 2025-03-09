@@ -1620,7 +1620,7 @@ func Test508_ArtTree_SearchMod_random_numbered_LT_(t *testing.T) {
 			panic("not found LT nil key")
 		}
 		if lf != lastLeaf {
-			panic("nil LTE search did not give last leaf")
+			panic("nil LT search did not give last leaf")
 		}
 	}
 }

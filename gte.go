@@ -328,9 +328,7 @@ func (n *Inner) getGTE(
 	// We know: dir < 0
 	// We know 'next' was the smallest such that: nextKeyb >= key.
 	//
-	// Do we have an adjacency conclusion here?
-	// Can we know our query key is between next.prev and next,
-	// and that we should return next.prev.last().
+	// Do we have an adjacency conclusion here? Maybe!
 
 	prevKeyb, prev := n.Node.prev(&querykey)
 	if prev == nil {

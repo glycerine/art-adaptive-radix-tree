@@ -251,11 +251,27 @@ func (t *Tree) LastLeaf() (lf *Leaf, found bool) {
 
 // Find allows GTE, GT, LTE, LT, and Exact searches.
 //
-// GTE = greater-than-or-equal
-// GT  = greater-than
-// LTE = less-than-or-equal
-// LT  = less-than
-// Exact = the whole key must match exactly.
+// GTE: find a leaf greater-than-or-equal to key;
+// the smallest such key.
+//
+// GT: find a leaf strictly greater-than key;
+// the smallest such key.
+//
+// LTE: find a leaf less-than-or-equal to key;
+// the largest such key.
+//
+// LT: find a leaf less-than key; the
+// largest such key.
+//
+// Exact: find leaf whose key matches the supplied
+// key exactly. This is the default. It acts
+// like a hash table. A key can only be stored
+// once in the tree. (It is not a multi-map
+// in the C++ STL sense).
+//
+// If key is nil, then GTE and GT return
+// the first leaf in the tree, while LTE
+// and LT return the last leaf in the tree.
 func (t *Tree) Find(smod SearchModifier, key Key) (lf *Leaf, found bool) {
 	if !t.SkipLocking {
 		t.Rwmut.RLock()

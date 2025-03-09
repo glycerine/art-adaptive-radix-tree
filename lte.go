@@ -327,7 +327,7 @@ func (n *Inner) getLTE(
 	// We know: dir > 0
 	// We know 'prev' was the largest such that: prevKeyb <= key.
 	//
-	// Do we have an adjacency conclusion here?
+	// Do we have an adjacency conclusion here? Maybe!
 
 	nextKeyb, next := n.Node.next(&querykey)
 	if next == nil {
