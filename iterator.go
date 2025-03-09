@@ -216,19 +216,10 @@ func Ascend(t *Tree, beg, endx Key) iter.Seq2[Key, any] {
 	}
 }
 
-// dfs does depth-first-search. This func was
-// preserved from the miserable experiment in
-// serializing inner nodes too (which was bulkier
-// on disk, and much slower, and we never worked out
-// all the bugs).
+// dfs does depth-first-search.
 //
-// (Inner serz was slower: 400msec vs 90msec,
-// and bigger on disk: 27MB vs 1.6MB (17x) compressed,
-// or 369M vs 13M (28x bigger) uncompressed.
-// So, totally not worth it.)
-//
-// Might still be useful for debugging/visualizing
-// the full tree.
+// Useful for debugging/visualizing
+// the full tree. Used in some tests.
 func dfs(root *bnode) iter.Seq2[*bnode, bool] {
 	return func(yield func(*bnode, bool) bool) {
 

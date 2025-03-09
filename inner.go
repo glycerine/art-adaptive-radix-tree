@@ -63,7 +63,7 @@ func (n *Inner) insert(lf *Leaf, depth int, selfb *bnode, tree *Tree, parent *In
 			compressed: n.compressed[mis+1:],
 			// keep path stuff for debugging!
 			//path:       append([]byte{}, lf.Key[:depth+mis]...),
-			subN: n.subN,
+			SubN: n.SubN,
 		}
 		//vv("assigned path '%v' to %p", string(newChild.path), newChild)
 		newChild.Keybyte = newChildKey
@@ -91,7 +91,7 @@ func (n *Inner) insert(lf *Leaf, depth int, selfb *bnode, tree *Tree, parent *In
 		// ======================================
 
 		n.compressed = parentCompressed
-		n.subN++
+		n.SubN++
 		//n.Keybyte stays the same I think. likewise n.path.
 
 		selfb.inner = n
@@ -113,7 +113,7 @@ func (n *Inner) insert(lf *Leaf, depth int, selfb *bnode, tree *Tree, parent *In
 		addkey := lf.Key.At(nextDepth)
 		lf.Keybyte = addkey
 		n.Node.addChild(addkey, bnodeLeaf(lf))
-		n.subN++
+		n.SubN++
 
 		return selfb, false
 	}
@@ -122,7 +122,7 @@ func (n *Inner) insert(lf *Leaf, depth int, selfb *bnode, tree *Tree, parent *In
 
 		replacement, updated = next.insert(lf, nextDepth+1, next, tree, n)
 		n.Node.replace(idx, replacement)
-		n.subN++
+		n.SubN++
 		if !replacement.isLeaf {
 			replacement.inner.Keybyte = nextkey
 
@@ -136,7 +136,7 @@ func (n *Inner) insert(lf *Leaf, depth int, selfb *bnode, tree *Tree, parent *In
 
 	//vv("recursing on next; nextDepth+1 = %v", nextDepth+1)
 	_, updated = next.insert(lf, nextDepth+1, next, tree, n)
-	n.subN++
+	n.SubN++
 	return selfb, updated
 }
 
@@ -170,6 +170,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 			deletedNode = n.Node.replace(idx, nil)
 			//vv(" after c.Node.replace, c = '%v'", c.String())
 			//vv("deletedNode = '%v'", deletedNode.String())
+			n.SubN--
 			// get the left node
 			leftKey, left := n.Node.next(nil)
 
@@ -186,7 +187,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 			parentUpdate(left)
 
 			// NB: replace() is used to delete as well as update,
-			// and happens via this parentUpdate callback.
+			// and happens via the above parentUpdate callback.
 			// In particular, the keys are updated alongside
 			// children pointers.
 
@@ -202,6 +203,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 		if atmin && !isNode4 {
 			n.Node = n.Node.shrink()
 		}
+		n.SubN--
 		return true, deletedNode
 
 	} else if next.isLeaf {
@@ -212,6 +214,9 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 
 	deleted, deletedNode = next.del(key, nextDepth+1, next, func(bn *bnode) {
 		n.Node.replace(idx, bn)
+		if bn == nil {
+			n.SubN--
+		}
 	})
 	return deleted, deletedNode
 }
@@ -411,7 +416,7 @@ func (n *Inner) FlatString(depth int, recurse int) (s string) {
 		// keep commented out path stuff for debugging!
 		//string(n.path),
 		"(paths commented out atm)",
-		n.subN,
+		n.SubN,
 		"\n",
 	)
 

@@ -1624,3 +1624,111 @@ func Test508_ArtTree_SearchMod_random_numbered_LT_(t *testing.T) {
 		}
 	}
 }
+
+// SubN updates and indexing
+func Test510_SubN_maintained_for_At_indexing_(t *testing.T) {
+
+	// j=total number of leaves in the tree.
+	//for j := 1; j < 5000; j++ {
+	for j := 10; j < 11; j++ {
+
+		//if j%100 == 0 {
+		//	//vv("on j = %v", j)
+		//}
+
+		tree := NewArtTree()
+
+		var seed32 [32]byte
+		chacha8 := mathrand2.NewChaCha8(seed32)
+
+		var sorted [][]byte
+		var N uint64 = 100000 // domain for leaf keys.
+
+		// j = number of leaves in the tree.
+
+		used := make(map[int]bool) // tree may dedup, but sorted needs too.
+		for range j {
+			r := int(chacha8.Uint64() % N)
+			if used[r] {
+				continue
+			}
+			used[r] = true
+			sorted = append(sorted, []byte(fmt.Sprintf("%06d", r)))
+		}
+		sort.Sort(sliceByteSlice(sorted))
+
+		var lastLeaf *Leaf
+		_ = lastLeaf
+		for i, w := range sorted {
+
+			key2 := Key(append([]byte{}, w...))
+			lf := NewLeaf(key2, key2, nil)
+			if tree.InsertLeaf(lf) {
+				// make sure leaves are unique.
+				t.Fatalf("i=%v, could not add '%v', already in tree", i, string(w))
+			}
+			lastLeaf = lf
+
+			// after each insert, verify correct SubN counts.
+			verifySubN(tree.root)
+		}
+
+		sz := tree.Size()
+
+		var key []byte
+
+		for i := range sz {
+			key = sorted[i]
+			tree.Remove(key)
+			// after each delete, verify correct SubN counts.
+			verifySubN(tree.root)
+		}
+	}
+}
+
+// verifySubN:
+// walk through the subtree at root, counting children.
+// At each inner node, verify that SubN
+// has an accurate count of children, or panic.
+func verifySubN(root *bnode) (leafcount int) {
+
+	if root.isLeaf {
+		return 1
+	} else {
+
+		inode := root.inner.Node
+		switch n := inode.(type) {
+		case *node4:
+			for i := range n.children {
+				if i < n.lth {
+					leafcount += verifySubN(n.children[i])
+				}
+			}
+		case *node16:
+			for i := range n.children {
+				if i < n.lth {
+					leafcount += verifySubN(n.children[i])
+				}
+			}
+		case *node48:
+			for _, k := range n.keys {
+
+				if k == 0 {
+					continue
+				}
+				child := n.children[k-1]
+				leafcount += verifySubN(child)
+			}
+		case *node256:
+			for _, child := range n.children {
+				if child != nil {
+					leafcount += verifySubN(child)
+				}
+			}
+		}
+		if root.inner.SubN != leafcount {
+			panic(fmt.Sprintf("leafcount=%v, but n.SubN = %v", leafcount, root.inner.SubN))
+		}
+	}
+	return leafcount
+}

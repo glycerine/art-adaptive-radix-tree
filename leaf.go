@@ -151,7 +151,7 @@ func (lf *Leaf) insert(other *Leaf, depth int, selfb *bnode, tree *Tree, par *In
 
 		// keep commented out path stuff for debugging!
 		//path: append([]byte{}, lf.Key[:depth+longestPrefix]...),
-		subN: 2,
+		SubN: 2,
 	}
 	//vv("assigned path '%v' to %p", string(nn.path), nn)
 	if longestPrefix > 0 {
@@ -170,7 +170,6 @@ func (lf *Leaf) insert(other *Leaf, depth int, selfb *bnode, tree *Tree, par *In
 	selfb.isLeaf = false
 	selfb.inner = nn
 	return selfb, false
-	//return bnodeInner(nn), false
 }
 
 func (lf *Leaf) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode)) (deleted bool, deletedNode *bnode) {

@@ -163,23 +163,26 @@ func (key Key) At(pos int) byte {
 // the Node field. An Inode can have
 // node4/node16/node48/node256 inside.
 type Inner struct {
-	rwmut      sync.RWMutex
+
+	// compressed implements path compression.
 	compressed []byte
 
-	// keep path commented out stuff for debugging!
+	// Note: keep this commented out path field for debugging!
 	// For sane debugging, comment this in
 	// back in to store the full path on each Inner node.
-	// It should end in Keybyte, we think.
 	//path []byte
 
 	// counted B-tree style: how many
 	// leaf are store below us.
-	subN int
+	SubN int `zid:"2"`
 
 	// Node holds one of node4, node16, node48, or node256.
 	// Inode is an interface that all of them implement.
-	Node    Inode `zid:"0"`
-	Keybyte byte  `zid:"1"`
+	Node Inode `zid:"0"`
+
+	// Keybyte gives the byte that leads
+	// to us in the parent index.
+	Keybyte byte `zid:"1"`
 }
 
 func (n *Inner) gte(k *byte) (byte, *bnode) {
