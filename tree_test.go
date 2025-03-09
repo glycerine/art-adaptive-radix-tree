@@ -1657,6 +1657,8 @@ func Test510_SubN_maintained_for_At_indexing_(t *testing.T) {
 		}
 		sort.Sort(sliceByteSlice(sorted))
 
+		vv("verifying SubN after each insert")
+
 		var lastLeaf *Leaf
 		_ = lastLeaf
 		for i, w := range sorted {
@@ -1673,6 +1675,7 @@ func Test510_SubN_maintained_for_At_indexing_(t *testing.T) {
 			verifySubN(tree.root)
 		}
 
+		vv("verifying SubN after removal")
 		sz := tree.Size()
 
 		var key []byte
