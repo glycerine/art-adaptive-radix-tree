@@ -169,7 +169,7 @@ type Inner struct {
 	//path []byte
 
 	// counted B-tree style: how many
-	// leaf are store below us.
+	// leaves are stored in our sub-tree.
 	SubN int `zid:"2"`
 
 	// Node holds one of node4, node16, node48, or node256.
@@ -202,14 +202,6 @@ func (n *Inner) first() (byte, *bnode) {
 	return n.Node.first()
 }
 
-/*func (n *Inner) setDepth(d int) {
-	n.Node.setDepth(d)
-}
-
-func (n *Inner) depth() int {
-	return n.Node.depth()
-}
-*/
 // implemented by node4, node16, node48, node256
 type Inode interface {
 	// last gives the greatest key (right-most) child
@@ -255,10 +247,6 @@ type Inode interface {
 	shrink() Inode
 
 	String() string
-
-	// moved compressed back to Inner; was profiling hot spot.
-	//getCompressed() []byte
-	//setCompressed(by []byte)
 }
 
 // get the smallest key/first (left-most) leaf in our subtree.
