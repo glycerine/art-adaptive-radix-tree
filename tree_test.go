@@ -1748,8 +1748,8 @@ func verifySubN(root *bnode) (leafcount int) {
 func Test511_At_index_the_tree_like_an_array(t *testing.T) {
 
 	// j=total number of leaves in the tree.
-	//for j := 1; j < 5000; j++ {
-	for j := 1; j < 10; j++ {
+	//for j := 1; j < 10_000; j++ { // 42 sec
+	for j := 1; j < 500; j++ { // 0.10 sec
 
 		//if j%100 == 0 {
 		//	//vv("on j = %v", j)
@@ -1792,7 +1792,7 @@ func Test511_At_index_the_tree_like_an_array(t *testing.T) {
 		//vv("verifying SubN after removal")
 		sz := tree.Size()
 
-		vv("starting tree = '%v'", tree)
+		//vv("starting tree = '%v'", tree)
 
 		for i := range sz {
 			lf, ok := tree.At(i)

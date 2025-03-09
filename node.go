@@ -88,7 +88,7 @@ func (a *bnode) subn() int {
 }
 
 func (a *bnode) at(i int) (r *Leaf, ok bool) {
-	vv("at(i=%v) called on a='%v'", i, a)
+	//vv("at(i=%v) called on a='%v'", i, a)
 	if i < 0 {
 		return nil, false
 	}
@@ -112,7 +112,7 @@ func (a *bnode) at(i int) (r *Leaf, ok bool) {
 		subn = b.subn() // leaf returns 1
 		pre = tot
 		tot += subn
-		vv("pre=%v; tot=%v; i=%v; subn=%v", pre, tot, i, subn)
+		//vv("pre=%v; tot=%v; i=%v; subn=%v", pre, tot, i, subn)
 		if i < tot {
 			return b.at(i - pre)
 		}
