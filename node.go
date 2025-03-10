@@ -300,7 +300,7 @@ type Inode interface {
 	// replace updates node at specified index
 	// if node is nil - delete the node and adjust metadata.
 	// return replaced node
-	replace(int, *bnode) *bnode
+	replace(idx int, child *bnode, insert bool) *bnode
 
 	// full is true if node reached max size
 	full() bool

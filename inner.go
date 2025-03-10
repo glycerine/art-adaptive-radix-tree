@@ -121,7 +121,7 @@ func (n *Inner) insert(lf *Leaf, depth int, selfb *bnode, tree *Tree, parent *In
 	if next.isLeaf {
 
 		replacement, updated = next.insert(lf, nextDepth+1, next, tree, n)
-		n.Node.replace(idx, replacement)
+		n.Node.replace(idx, replacement, false)
 		n.SubN++
 		if !replacement.isLeaf {
 			replacement.inner.Keybyte = nextkey
@@ -168,7 +168,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 			//vv("del('%v'); collapsing from n4 -> leaf, idx = '%v'; delkey='%v'", viznlString(key), idx, viznl(string(delkey)))
 
 			//vv("before c.Node.replace, c = '%v'", c.String())
-			deletedNode = n.Node.replace(idx, nil)
+			deletedNode = n.Node.replace(idx, nil, true)
 			//vv(" after c.Node.replace, c = '%v'", c.String())
 			//vv("deletedNode = '%v'", deletedNode.String())
 			// get the left node
@@ -199,7 +199,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 
 		// local change. parent lock won't be required
 
-		deletedNode = n.Node.replace(idx, nil)
+		deletedNode = n.Node.replace(idx, nil, true)
 		if atmin && !isNode4 {
 			n.Node = n.Node.shrink()
 		}
@@ -212,7 +212,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 	// INVAR: next is not a leaf
 
 	deleted, deletedNode = next.del(key, nextDepth+1, next, func(bn *bnode) {
-		n.Node.replace(idx, bn)
+		n.Node.replace(idx, bn, true)
 	})
 	n.Node.redoPren() // essential!
 	return deleted, deletedNode

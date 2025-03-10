@@ -133,14 +133,16 @@ func (n *node256) prev(k *byte) (byte, *bnode) {
 	return 0, nil
 }
 
-func (n *node256) replace(idx int, child *bnode) (old *bnode) {
+func (n *node256) replace(idx int, child *bnode, del bool) (old *bnode) {
 	old = n.children[byte(idx)]
 	n.children[byte(idx)] = child
 	if child == nil {
 		n.lth--
-		n.redoPren()
+		if del {
+			n.redoPren()
+		}
 	} else {
-		if child.pren != old.pren {
+		if del && child.pren != old.pren {
 			n.redoPren()
 		}
 	}

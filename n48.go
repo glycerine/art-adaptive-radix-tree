@@ -194,7 +194,7 @@ func (n *node48) grow() Inode {
 	return nn
 }
 
-func (n *node48) replace(k int, child *bnode) (old *bnode) {
+func (n *node48) replace(k int, child *bnode, del bool) (old *bnode) {
 	idx := n.keys[k]
 	if idx == 0 {
 		panic("replace can't be called for idx=0")
@@ -204,9 +204,11 @@ func (n *node48) replace(k int, child *bnode) (old *bnode) {
 	if child == nil {
 		n.keys[k] = 0
 		n.lth--
-		n.redoPren()
+		if del {
+			n.redoPren()
+		}
 	} else {
-		if child.pren != old.pren {
+		if del && child.pren != old.pren {
 			n.redoPren()
 		}
 	}

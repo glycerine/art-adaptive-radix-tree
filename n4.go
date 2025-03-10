@@ -169,7 +169,7 @@ func (n *node4) redoPren() {
 		tot += ch.subn()
 	}
 }
-func (n *node4) replace(idx int, child *bnode) (old *bnode) {
+func (n *node4) replace(idx int, child *bnode, del bool) (old *bnode) {
 	old = n.children[idx]
 	if child == nil {
 		copy(n.keys[idx:], n.keys[idx+1:])
@@ -177,12 +177,12 @@ func (n *node4) replace(idx int, child *bnode) (old *bnode) {
 		n.keys[n.lth-1] = 0
 		n.children[n.lth-1] = nil
 		n.lth--
-		if idx < n.lth {
+		if del && idx < n.lth {
 			n.redoPren()
 		}
 	} else {
 		n.children[idx] = child
-		if child.pren != old.pren {
+		if del && child.pren != old.pren {
 			n.redoPren()
 		}
 	}

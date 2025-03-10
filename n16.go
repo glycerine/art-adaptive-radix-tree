@@ -157,7 +157,7 @@ func (n *node16) prev(k *byte) (byte, *bnode) {
 	return 0, nil
 }
 
-func (n *node16) replace(idx int, child *bnode) (old *bnode) {
+func (n *node16) replace(idx int, child *bnode, del bool) (old *bnode) {
 	old = n.children[idx]
 	if child == nil {
 		copy(n.keys[idx:], n.keys[idx+1:])
@@ -165,12 +165,12 @@ func (n *node16) replace(idx int, child *bnode) (old *bnode) {
 		n.keys[n.lth-1] = 0
 		n.children[n.lth-1] = nil
 		n.lth--
-		if idx < n.lth {
+		if del && idx < n.lth {
 			n.redoPren()
 		}
 	} else {
 		n.children[idx] = child
-		if child.pren != old.pren {
+		if del && child.pren != old.pren {
 			n.redoPren()
 		}
 	}
