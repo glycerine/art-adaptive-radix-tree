@@ -368,8 +368,6 @@ func (n *Inner) getGTE(
 		// next.recursiveFirst() is our goal node.
 
 		value, _ := next.recursiveFirst()
-		// above is easier to reason about than: (which we had)
-		//value, _ = value.recursiveFirst()
 		return value, true, 0, next.pren
 	}
 	if dir2 > 0 && smallestWillDo {
