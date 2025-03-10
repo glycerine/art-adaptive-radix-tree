@@ -257,6 +257,7 @@ func (a *bnode) redoPren() {
 
 // implemented by node4, node16, node48, node256
 type Inode interface {
+	// re-compute the cumulative previous child subN cache
 	redoPren()
 	// last gives the greatest key (right-most) child
 	first() (byte, *bnode)
@@ -379,9 +380,8 @@ func (a *bnode) getLTE(key Key, depth int, smod SearchModifier, selfb *bnode, tr
 	return a.inner.getLTE(key, depth, smod, a, tree, calldepth, largestWillDo, keyCmpPath)
 }
 
-// exclude x
-func (n *Inner) sumSubNTo(x *bnode) (tot int) {
-	return // expensive!
+// too expensive! replace with x.pren (uses the pren cache)
+func (n *Inner) sumSubNToOld(x *bnode) (tot int) {
 	key, b := n.Node.next(nil)
 	for b != nil {
 		if b == x {

@@ -231,7 +231,7 @@ func (n *Inner) getLTE(
 		byteCmp(querykey, prevKeyb, keyCmpPath),
 	)
 
-	id += n.sumSubNTo(prev)
+	id += prev.pren
 	if found {
 		// exact LTE match
 		switch smod {
@@ -256,7 +256,7 @@ func (n *Inner) getLTE(
 			value, _ = prevLocal.recursiveLast()
 			found = true
 			dir = 0
-			id = n.sumSubNTo(prevLocal) + prevLocal.subn() - 1
+			id = prevLocal.pren + prevLocal.subn() - 1
 			return
 			// end LT
 		}
@@ -301,7 +301,7 @@ func (n *Inner) getLTE(
 			byteCmp(querykey, prevprevKeyb, keyCmpPath),
 		)
 
-		id2 += n.sumSubNTo(prevprev)
+		id2 += prevprev.pren
 		if found2 {
 			return value2, true, 0, id2
 		}
@@ -358,7 +358,7 @@ func (n *Inner) getLTE(
 		byteCmp(querykey, nextKeyb, keyCmpPath),
 	)
 
-	id2 += n.sumSubNTo(next)
+	id2 += next.pren
 	if found2 {
 		return value2, true, 0, id2
 	}
@@ -368,7 +368,7 @@ func (n *Inner) getLTE(
 		// prev.recursiveLast() is our goal node.
 		//value, _ = value.recursiveLast()
 		value, _ = prev.recursiveLast()
-		return value, true, 0, n.sumSubNTo(prev) + prev.subn() - 1
+		return value, true, 0, prev.pren + prev.subn() - 1
 	}
 	if dir2 < 0 && largestWillDo {
 		dir2 = -2

@@ -231,7 +231,7 @@ func (n *Inner) getGTE(
 		byteCmp(querykey, nextKeyb, keyCmpPath),
 	)
 
-	id += n.sumSubNTo(next)
+	id += next.pren
 	if found {
 		// exact GTE match
 		switch smod {
@@ -256,7 +256,7 @@ func (n *Inner) getGTE(
 			value, _ = nextLocal.recursiveFirst()
 			found = true
 			dir = 0
-			id = n.sumSubNTo(nextLocal)
+			id = nextLocal.pren
 			return
 			// end GT
 		}
@@ -301,7 +301,7 @@ func (n *Inner) getGTE(
 			byteCmp(querykey, nextnextKeyb, keyCmpPath),
 		)
 
-		id2 += n.sumSubNTo(nextnext)
+		id2 += nextnext.pren
 		if found2 {
 			return value2, true, 0, id2
 		}
@@ -358,7 +358,7 @@ func (n *Inner) getGTE(
 		byteCmp(querykey, prevKeyb, keyCmpPath),
 	)
 
-	id2 += n.sumSubNTo(prev)
+	id2 += prev.pren
 	if found2 {
 		return value2, true, 0, id2
 	}
@@ -370,7 +370,7 @@ func (n *Inner) getGTE(
 		value, _ := next.recursiveFirst()
 		// above is easier to reason about than: (which we had)
 		//value, _ = value.recursiveFirst()
-		return value, true, 0, n.sumSubNTo(next)
+		return value, true, 0, next.pren
 	}
 	if dir2 > 0 && smallestWillDo {
 		dir2 = 2
