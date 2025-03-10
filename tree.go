@@ -116,15 +116,16 @@ type Tree struct {
 	// lost data, and panic segfaults from torn reads.
 	//
 	// The easiest way to do this is with a sync.RWMutex.
-	// One will be deployed for you if SkipLocking
-	// defaults to false.
+	// One such, the Rwmut on this Tree, will be
+	// employed for you if SkipLocking is allowed to
+	// default to false.
 	SkipLocking bool `msg:"-"`
 }
 
 // used by tests; kind of a default value type.
 type ByteSliceValue []byte
 
-// NewArtTree creates a and returns a new ART Tree,
+// NewArtTree creates and returns a new ART Tree,
 // ready for use.
 func NewArtTree() *Tree {
 	return &Tree{}
