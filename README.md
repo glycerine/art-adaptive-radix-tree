@@ -69,7 +69,7 @@ this quick and cursory benchmark as a guide.
 Ease of use: efficient key-range lookup and iteration, as well as the
 ability to "treat the tree as a slice" using
 integer indexes (based on the counted B-tree
-idea[5]), make this ART tree implementation
+idea[5] -- see the tree.At(i int) method), make this ART tree implementation
 particularly easy to use in practice.
 
 This ART tree supports only a single value for each
