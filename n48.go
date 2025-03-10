@@ -12,9 +12,6 @@ type node48 struct {
 	// keys[j] non-zero maps to children[keys[j]-1]
 	keys     [256]uint16
 	children [48]*bnode
-
-	//dep        int
-	//compressed []byte
 }
 
 func (n *node48) last() (byte, *bnode) {
@@ -37,22 +34,6 @@ func (n *node48) first() (byte, *bnode) {
 	//panic("unreachable since node48 must have >= 17 children")
 	return 0, nil // forgo panic, try to make inline-able.
 }
-
-/*
-func (n *node48) getCompressed() []byte {
-	return n.compressed
-}
-func (n *node48) setCompressed(pathpart []byte) {
-	n.compressed = pathpart
-}
-
-func (n *node48) setDepth(d int) {
-	n.dep = d
-}
-func (n *node48) depth() int {
-	return n.dep
-}
-*/
 
 func (n *node48) nchild() int {
 	return int(n.lth)
@@ -181,8 +162,6 @@ func (n *node48) redoPren() {
 func (n *node48) grow() Inode {
 	nn := &node256{
 		lth: n.lth,
-		//compressed: append([]byte{}, n.compressed...),
-		//dep:        n.dep,
 	}
 	for b, i := range n.keys {
 		if i == 0 {
@@ -222,8 +201,6 @@ func (n *node48) min() bool {
 func (n *node48) shrink() Inode {
 	nn := &node16{
 		lth: n.lth,
-		//compressed: append([]byte{}, n.compressed...),
-		//dep:        n.dep,
 	}
 	nni := 0
 	for i, idx := range n.keys {

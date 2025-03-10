@@ -6,26 +6,7 @@ type node4 struct {
 	lth      int
 	keys     [4]byte
 	children [4]*bnode
-
-	//dep int // depth()
-	//compressed []byte
 }
-
-/*
-func (n *node4) getCompressed() []byte {
-	return n.compressed
-}
-func (n *node4) setCompressed(pathpart []byte) {
-	n.compressed = pathpart
-}
-
-func (n *node4) setDepth(d int) {
-	n.dep = d
-}
-func (n *node4) depth() int {
-	return n.dep
-}
-*/
 
 func (n *node4) Kind() Kind {
 	return Node4

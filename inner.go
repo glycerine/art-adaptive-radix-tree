@@ -8,7 +8,6 @@ import (
 	//"sync/atomic"
 
 	cryrand "crypto/rand"
-	cristalbase64 "github.com/cristalhq/base64"
 	mathrand2 "math/rand/v2"
 )
 
@@ -134,7 +133,6 @@ func (n *Inner) insert(lf *Leaf, depth int, selfb *bnode, tree *Tree, parent *In
 	}
 	// INVAR: next is not a leaf.
 
-	//vv("recursing on next; nextDepth+1 = %v", nextDepth+1)
 	_, updated = next.insert(lf, nextDepth+1, next, tree, n)
 	n.SubN++
 	return selfb, updated
@@ -165,17 +163,13 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 		if isNode4 && atmin {
 			// update parent pointer. current node will
 			// be collapsed from n4 -> leaf.
-			//vv("del('%v'); collapsing from n4 -> leaf, idx = '%v'; delkey='%v'", viznlString(key), idx, viznl(string(delkey)))
 
-			//vv("before c.Node.replace, c = '%v'", c.String())
 			deletedNode = n.Node.replace(idx, nil, true)
-			//vv(" after c.Node.replace, c = '%v'", c.String())
-			//vv("deletedNode = '%v'", deletedNode.String())
+
 			// get the left node
 			leftKey, left := n.Node.next(nil)
 
 			// during delete of n, have to give leftB n's prefix
-			//vv("leftKey = '%v'; left = '%v'", viznl(string(leftKey)), ll.FlatString(depth, nil, 0))
 			if left.isLeaf {
 				left.leaf.addPrefixBefore(n, leftKey)
 			} else {
@@ -197,7 +191,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 		// deleting a leaf in next.
 		// n is > node4
 
-		// local change. parent lock won't be required
+		// local change. parent not affected.
 
 		deletedNode = n.Node.replace(idx, nil, true)
 		if atmin && !isNode4 {
@@ -214,7 +208,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 	deleted, deletedNode = next.del(key, nextDepth+1, next, func(bn *bnode) {
 		n.Node.replace(idx, bn, true)
 	})
-	n.Node.redoPren() // essential!
+	n.Node.redoPren() // essential! for LeafIndex/id to be correct.
 	return deleted, deletedNode
 }
 
@@ -292,7 +286,6 @@ func (n *Inner) get(key Key, depth int, selfb *bnode) (value *bnode, found bool,
 	//pp("about to call next.get on next = '%v' with inquiry '%v'", next.FlatString(nextDepth+1, 0), string(key[:nextDepth]))
 
 	value, found, dir, id = next.get(key, nextDepth+1, next)
-	//id += n.sumSubNTo(next)
 	id += next.pren
 	return
 }
@@ -320,10 +313,6 @@ func (n *Inner) addPrefixBefore(node *Inner, key byte) {
 func (n *Inner) String() string {
 	return n.FlatString(0, 0) // -1 to recurse.
 }
-
-//func (n *Inner) String() string {
-//	return n.DepthString(0, []byte{}, -1)
-//}
 
 func (n *Inner) DepthString(depth int, prior []byte, recurse int) (s string) {
 
@@ -383,7 +372,7 @@ func randomID(n int) string {
 	chacha8randMut.Lock()
 	chacha8rand.Read(pseudo)
 	chacha8randMut.Unlock()
-	return cristalbase64.URLEncoding.EncodeToString(pseudo)
+	return fmt.Sprintf("%x", pseudo)
 }
 
 var chacha8randMut sync.Mutex
