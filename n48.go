@@ -204,6 +204,11 @@ func (n *node48) replace(k int, child *bnode) (old *bnode) {
 	if child == nil {
 		n.keys[k] = 0
 		n.lth--
+		n.redoPren()
+	} else {
+		if child.pren != old.pren {
+			n.redoPren()
+		}
 	}
 	return
 }

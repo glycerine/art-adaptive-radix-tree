@@ -177,8 +177,14 @@ func (n *node4) replace(idx int, child *bnode) (old *bnode) {
 		n.keys[n.lth-1] = 0
 		n.children[n.lth-1] = nil
 		n.lth--
+		if idx < n.lth {
+			n.redoPren()
+		}
 	} else {
 		n.children[idx] = child
+		if child.pren != old.pren {
+			n.redoPren()
+		}
 	}
 	return
 }

@@ -214,6 +214,7 @@ func (n *Inner) del(key Key, depth int, selfb *bnode, parentUpdate func(*bnode))
 	deleted, deletedNode = next.del(key, nextDepth+1, next, func(bn *bnode) {
 		n.Node.replace(idx, bn)
 	})
+	n.Node.redoPren() // essential!
 	return deleted, deletedNode
 }
 

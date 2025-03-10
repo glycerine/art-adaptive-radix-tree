@@ -138,6 +138,11 @@ func (n *node256) replace(idx int, child *bnode) (old *bnode) {
 	n.children[byte(idx)] = child
 	if child == nil {
 		n.lth--
+		n.redoPren()
+	} else {
+		if child.pren != old.pren {
+			n.redoPren()
+		}
 	}
 	return
 }

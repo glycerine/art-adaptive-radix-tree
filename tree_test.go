@@ -1894,5 +1894,25 @@ func Test512_LeafIndex_inverse_of_At(t *testing.T) {
 				panic(fmt.Sprintf("at j=%v; i=%v, want '%v'; got2 '%v'", j, i, want, got2))
 			}
 		}
+		// must also verify after removes
+		for sz > 1 {
+			lf, ok := tree.At(0)
+			if !ok {
+				panic("not okay?")
+			}
+			tree.Remove(lf.Key)
+			sz = tree.Size()
+			for i := range sz {
+				lf, ok := tree.At(i)
+				if !ok {
+					panic(fmt.Sprintf("missing leaf!?! j=%v; i=%v not ok", j, i))
+				}
+				j, ok := tree.LeafIndex(lf)
+				if !ok || j != i {
+					t.Fatalf("want ok=true, j=i=%v; got ok=%v; j=%v", i, ok, j)
+				}
+			}
+		}
+
 	}
 }
