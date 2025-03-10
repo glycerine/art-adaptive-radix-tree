@@ -80,6 +80,7 @@ func (n *Inner) getGTE(
 		dir = 0
 		found = true
 		value, _ = n.recursiveFirst()
+		// id 0 is correct.
 		return
 	}
 
@@ -230,6 +231,7 @@ func (n *Inner) getGTE(
 		byteCmp(querykey, nextKeyb, keyCmpPath),
 	)
 
+	id += n.sumSubNTo(next)
 	if found {
 		// exact GTE match
 		switch smod {

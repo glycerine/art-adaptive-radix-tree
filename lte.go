@@ -231,6 +231,7 @@ func (n *Inner) getLTE(
 		byteCmp(querykey, prevKeyb, keyCmpPath),
 	)
 
+	id += n.sumSubNTo(prev)
 	if found {
 		// exact LTE match
 		switch smod {
