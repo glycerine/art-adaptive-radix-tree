@@ -190,6 +190,7 @@ func (n *node48) grow() Inode {
 		}
 		nn.children[b] = n.children[i-1]
 	}
+	nn.redoPren()
 	return nn
 }
 
@@ -229,6 +230,7 @@ func (n *node48) shrink() Inode {
 			nni++
 		}
 	}
+	nn.redoPren()
 	return nn
 }
 

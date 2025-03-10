@@ -248,8 +248,16 @@ func (n *Inner) first() (byte, *bnode) {
 	return n.Node.first()
 }
 
+func (a *bnode) redoPren() {
+	if a.isLeaf {
+		return
+	}
+	a.inner.Node.redoPren()
+}
+
 // implemented by node4, node16, node48, node256
 type Inode interface {
+	redoPren()
 	// last gives the greatest key (right-most) child
 	first() (byte, *bnode)
 	last() (byte, *bnode)
@@ -373,7 +381,7 @@ func (a *bnode) getLTE(key Key, depth int, smod SearchModifier, selfb *bnode, tr
 
 // exclude x
 func (n *Inner) sumSubNTo(x *bnode) (tot int) {
-
+	return // expensive!
 	key, b := n.Node.next(nil)
 	for b != nil {
 		if b == x {

@@ -136,3 +136,25 @@ func writeMemProfiles(fn string) {
 	panicOn(ap.WriteTo(a, 1))
 	panicOn(gp.WriteTo(g, 2))
 }
+
+func TestWriteAndReadForProfiling(t *testing.T) {
+	// yeah the sumSubNTo is super expensive.
+	startOnlineWebProfiling()
+
+	value := newValue(123)
+	rng := rand.New(rand.NewSource(seed))
+	var rkey [8]byte
+
+	tree := NewArtTree()
+	readFrac := float32(7) / 10.0
+
+	for i := range 1_000_000_000 {
+		_ = i
+		rk := randomKey(rng, rkey[:])
+		if rng.Float32() < readFrac {
+			tree.FindExact(rk)
+		} else {
+			tree.Insert(rk, value)
+		}
+	}
+}

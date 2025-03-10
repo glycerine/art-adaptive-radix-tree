@@ -187,6 +187,7 @@ func (n *node256) shrink() Inode {
 		nn.keys[i] = index
 		nn.children[index-1] = n.children[i]
 	}
+	nn.redoPren()
 	return nn
 }
 

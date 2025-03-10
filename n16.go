@@ -210,6 +210,7 @@ func (n *node16) grow() Inode {
 		}
 		nn.keys[n.keys[i]] = uint16(i) + 1
 	}
+	nn.redoPren()
 	return nn
 }
 
@@ -225,6 +226,7 @@ func (n *node16) shrink() Inode {
 	copy(nn.keys[:], n.keys[:])
 	copy(nn.children[:], n.children[:])
 	nn.lth = n.lth
+	nn.redoPren()
 	return &nn
 }
 

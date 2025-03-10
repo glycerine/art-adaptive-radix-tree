@@ -192,6 +192,7 @@ func (n *node4) grow() Inode {
 	nn.lth = n.lth
 	copy(nn.keys[:], n.keys[:])
 	copy(nn.children[:], n.children[:])
+	nn.redoPren()
 	return nn
 }
 
