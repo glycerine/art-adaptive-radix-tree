@@ -55,7 +55,15 @@ type bnode struct {
 	leaf   *Leaf
 	inner  *Inner
 	isLeaf bool
-	pren   int
+
+	// pren is a cache of the sum of
+	// the SubN counts for all children
+	// earlier to us in our n4/n16/n48/n256 node.
+	// Found to be ssential to avoid very expensive
+	// summing on the fly of SubN counts
+	// during find/get/gte/lte. It allows
+	// the LeafIndex functionality to work and be fast.
+	pren int
 }
 
 func (a *bnode) Kind() Kind {
@@ -84,6 +92,11 @@ func (a *bnode) first() (byte, *bnode) {
 func (a *bnode) subn() int {
 	if a.isLeaf {
 		return 1
+	}
+	// gte_test.go:112 gives us
+	// a node thats not fully assembled, don't panic.
+	if a.inner == nil {
+		return 0
 	}
 	return a.inner.SubN
 }
@@ -378,18 +391,4 @@ func (a *bnode) getLTE(key Key, depth int, smod SearchModifier, selfb *bnode, tr
 		return a.leaf.get(key, depth, a)
 	}
 	return a.inner.getLTE(key, depth, smod, a, tree, calldepth, largestWillDo, keyCmpPath)
-}
-
-// too expensive! replace with x.pren (uses the pren cache)
-func (n *Inner) sumSubNToOld(x *bnode) (tot int) {
-	key, b := n.Node.next(nil)
-	for b != nil {
-		if b == x {
-			return
-		}
-		tot += b.subn()
-		key, b = n.Node.next(&key)
-	}
-	panic(fmt.Sprintf("sumSubNTo(x) detected caller problem: x not in children: '%v'", x))
-	return
 }

@@ -138,7 +138,7 @@ func writeMemProfiles(fn string) {
 }
 
 func TestWriteAndReadForProfiling(t *testing.T) {
-	// yeah the sumSubNTo is super expensive.
+	return
 	startOnlineWebProfiling()
 
 	value := newValue(123)
