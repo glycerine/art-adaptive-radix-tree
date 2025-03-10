@@ -307,7 +307,7 @@ func (n *Inner) getGTE(
 			// The adjacency condition holds,
 			// we have found our gte value.
 			found = true
-			value, _ = value2.recursiveFirst()
+			value = value2
 			dir = 0
 			return
 		}
@@ -360,7 +360,10 @@ func (n *Inner) getGTE(
 	if dir2 > 0 {
 		// adjacency conclusion holds: the
 		// next.recursiveFirst() is our goal node.
-		value, _ = value.recursiveFirst()
+
+		value, _ := next.recursiveFirst()
+		// above is easier to reason about than: (which we had)
+		//value, _ = value.recursiveFirst()
 		return value, true, 0, 0
 	}
 	if dir2 > 0 && smallestWillDo {

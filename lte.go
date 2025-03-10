@@ -306,7 +306,7 @@ func (n *Inner) getLTE(
 			// The adjacency condition holds,
 			// we have found our LTE value.
 			found = true
-			value, _ = value2.recursiveLast()
+			value = value2
 			dir = 0
 			return
 		}
@@ -359,7 +359,8 @@ func (n *Inner) getLTE(
 	if dir2 < 0 {
 		// adjacency conclusion holds: the
 		// prev.recursiveLast() is our goal node.
-		value, _ = value.recursiveLast()
+		//value, _ = value.recursiveLast()
+		value, _ = prev.recursiveLast()
 		return value, true, 0, 0
 	}
 	if dir2 < 0 && largestWillDo {
