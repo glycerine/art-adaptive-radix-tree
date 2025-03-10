@@ -1,5 +1,12 @@
 # the Adaptive radix tree (ART): sorted and speedy
 
+Note: a zero-dependency version of this library,
+without serialization support -- but otherwise
+identical -- is available at https://github.com/glycerine/uart
+If you are not benchmarking, you may prefer
+that version. Now back your regularly scheduled
+README:
+
 This project provides an implemention
 of the Adaptive Radix Tree (ART) data structure[1]. 
 
