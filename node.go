@@ -369,3 +369,18 @@ func (a *bnode) getLTE(key Key, depth int, smod SearchModifier, selfb *bnode, tr
 	}
 	return a.inner.getLTE(key, depth, smod, a, tree, calldepth, largestWillDo, keyCmpPath)
 }
+
+// exclude x
+func (n *Inner) sumSubNTo(x *bnode) (tot int) {
+
+	key, b := n.Node.next(nil)
+	for b != nil {
+		if b == x {
+			return
+		}
+		tot += b.subn()
+		key, b = n.Node.next(&key)
+	}
+	panic(fmt.Sprintf("sumSubNTo(x) detected caller problem: x not in children: '%v'", x))
+	return
+}
