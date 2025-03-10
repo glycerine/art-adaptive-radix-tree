@@ -24,7 +24,7 @@ func TestTree_SaverSimple(t *testing.T) {
 	//vv("as string tree = \n%v", tree.String())
 
 	// search first
-	value, found := tree.FindExact(Key("I'm Key"))
+	value, _, found := tree.FindExact(Key("I'm Key"))
 	assert.True(t, found)
 	//vv("before serz, first search value = '%#v'", value)
 	assert.Equal(t, ByteSliceValue("I'm Value"), value)
@@ -57,13 +57,13 @@ func TestTree_SaverSimple(t *testing.T) {
 		panic("Why is tree2 nil?")
 	}
 	// search it
-	value, found = tree2.FindExact(Key("I'm Key"))
+	value, _, found = tree2.FindExact(Key("I'm Key"))
 	assert.True(t, found)
 	//vv("value = '%#v'", value)
 	assert.Equal(t, ByteSliceValue("I'm Value"), value)
 
 	// search it
-	value, found = tree2.FindExact(Key("I'm Key2"))
+	value, _, found = tree2.FindExact(Key("I'm Key2"))
 	assert.True(t, found)
 	assert.Equal(t, ByteSliceValue("I'm Value2"), value)
 }
@@ -126,7 +126,7 @@ func TestTree_Saver_LinuxPaths(t *testing.T) {
 	t4 := time.Now()
 	for k := range paths {
 		key := paths[k]
-		v, found := tree.FindExact(key)
+		v, _, found := tree.FindExact(key)
 		if !found {
 			panic(fmt.Sprintf("missing key '%v'", string(key)))
 		}

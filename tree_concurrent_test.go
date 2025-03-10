@@ -43,7 +43,7 @@ func TestTree_ConcurrentInsert1(t *testing.T) {
 	for i := 0; i < N; i++ {
 		// if tree is our "haystack"...
 		needle := fmt.Sprintf("sharedNode::%d", i)
-		value, found := tree.FindExact(Key(needle))
+		value, _, found := tree.FindExact(Key(needle))
 		//assert.True(t, found) // red test here! on new one branch
 		if !found {
 			panic(fmt.Sprintf("could not find needle '%v'", needle))
@@ -119,7 +119,7 @@ func TestTree_ConcurrentInsert2(t *testing.T) {
 
 	for i := 0; i < N; i++ {
 		ins := <-inserted
-		value, found := tree.FindExact([]byte(ins.key))
+		value, _, found := tree.FindExact([]byte(ins.key))
 		if !found {
 			show("intent", intent)
 			show("ins", inserted)

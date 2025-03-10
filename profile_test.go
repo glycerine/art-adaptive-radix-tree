@@ -54,7 +54,7 @@ func TestReadForProfiling(t *testing.T) {
 	for i := range 1_000_000_000 {
 		_ = i
 		j := int(chacha8.Uint64() % uint64(len(paths)))
-		val, found := tree.FindExact(paths[j])
+		val, _, found := tree.FindExact(paths[j])
 		if !found {
 			panic(fmt.Sprintf("key '%v' was not found", string(paths[j])))
 		}

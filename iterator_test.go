@@ -216,7 +216,7 @@ func TestIterDeleteBehindFwd(t *testing.T) {
 	for i := thresh; i < N; i++ {
 		k := fmt.Sprintf("%09d", i)
 		key := Key(k) // []b
-		_, found := tree.FindExact(key)
+		_, _, found := tree.FindExact(key)
 		if !found {
 			t.Fatalf("expected to find '%v' still in tree", k)
 		}
@@ -325,7 +325,7 @@ func TestIterDeleteBehindReverse(t *testing.T) {
 	for i := 0; i < N-thresh; i++ {
 		k := fmt.Sprintf("%09d", i)
 		key := Key(k) // []b
-		_, found := tree.FindExact(key)
+		_, _, found := tree.FindExact(key)
 		if !found {
 			t.Fatalf("expected to find '%v' still in tree", k)
 		}

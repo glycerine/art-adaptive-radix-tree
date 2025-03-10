@@ -203,7 +203,7 @@ func TestInsertWithSameByteSliceAddress(t *testing.T) {
 	}
 
 	for k, _ := range keys {
-		n, ok := tree.FindExact([]byte(k))
+		n, _, ok := tree.FindExact([]byte(k))
 		if !ok || n == nil {
 			t.Errorf("Did not find entry for key: %v\n", []byte(k))
 		}
@@ -254,7 +254,7 @@ func Test_Seq2_Iter_on_LongCommonPrefixes(t *testing.T) {
 		if i == 0 {
 			continue
 		}
-		g, ok := tree.FindExact(w)
+		g, _, ok := tree.FindExact(w)
 		got := string(g.([]byte))
 		want := string(paths[i-1])
 		if !ok || want != got {
@@ -667,63 +667,3 @@ func Test_n4replace_buggy_test(t *testing.T) {
 		t.Errorf("Tree is not empty after adding and removing many words: size %v", sz)
 	}
 }
-
-/*
-red order when inserted 4:
-
-map based: removing line 'aa
-'
-map based: removing line 'aal
-'
-map based: removing line 'A
-'
-map based: removing line 'a
-'
-panic: deleted wrong key: aimed for 'a
-	', but got 'aal
-	' [recovered]
-
-another red order:
-map based: removing line 'a
-'
-map based: removing line 'aa
-'
-map based: removing line 'aal
-'
-map based: removing line 'A
-'
-panic: deleted wrong key: aimed for 'A
-	', but got 'aal <- note maybe only green when aal is deleted last
-
-panic: deleted wrong key: aimed for 'A
-	', but got 'aal
-
-
-*/
-
-/*
-red:
-art2_test.go:123 2025-03-04 07:10:37.837 -0600 CST permseed 0 => word_order = '[]string{"aa\n", "a\n", "aal\n", "A\n"}'
-
-art2_test.go:124 2025-03-04 07:18:36.694 -0600 CST permseed 3 => word_order = '[]string{"aa\n", "A\n", "aal\n", "a\n"}'
-
-art2_test.go:124 2025-03-04 07:19:17.168 -0600 CST permseed 4 => word_order = '[]string{"a\n", "A\n", "aal\n", "aa\n"}'
-
-art2_test.go:124 2025-03-04 07:20:15.62 -0600 CST permseed 5 => word_order = '[]string{"aal\n", "A\n", "aa\n", "a\n"}'
-
-art2_test.go:124 2025-03-04 07:20:38.388 -0600 CST permseed 6 => word_order = '[]string{"a\n", "aa\n", "aal\n", "A\n"}'
-
-art2_test.go:125 2025-03-04 07:23:28.262 -0600 CST permseed 7 => word_order = '[]string{"A\n", "aa\n", "aal\n", "a\n"}'
-
-art2_test.go:125 2025-03-04 07:24:27.896 -0600 CST permseed 9 => word_order = '[]string{"aa\n", "aal\n", "A\n", "a\n"}'
-
-vs green: (does not trigger bad deleted return value)
- maybe b/c aal is last, and that is what the red is getting last?
-
-art2_test.go:124 2025-03-04 07:21:13.154 -0600 CST permseed 1 => word_order = '[]string{"A\n", "aa\n", "a\n", "aal\n"}'
-
-art2_test.go:124 2025-03-04 07:21:43.819 -0600 CST permseed 2 => word_order = '[]string{"a\n", "aa\n", "A\n", "aal\n"}'
-
-art2_test.go:125 2025-03-04 07:23:57.408 -0600 CST permseed 8 => word_order = '[]string{"a\n", "A\n", "aa\n", "aal\n"}'
-
-*/
