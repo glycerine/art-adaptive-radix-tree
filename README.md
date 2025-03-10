@@ -49,8 +49,7 @@ offering it[4] in query result APIs.
 As an alternative to red-black trees,
 AVL trees, and other kinds of balanced binary trees,
 ART trees are attractive because of their speed and
-space savings (especially though path compression). Like
-those trees, ART offers an ordered index
+space savings. Like those trees, ART offers an ordered index
 of sorted keys allowing efficient O(log N) access
 for each unique key. However, as the benchmarks
 below indicate (1440 nsec per lookup for red-black tree,
