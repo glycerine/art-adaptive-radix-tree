@@ -1816,3 +1816,83 @@ func Test511_At_index_the_tree_like_an_array(t *testing.T) {
 		}
 	}
 }
+
+// LeafIndex and At(i) are inverses.
+// At(j) returns the j-th leaf in the sorted tree.
+// Then calling idx, ok := tree.LeafIndex(leaf)
+// should give back j. Test this holds.
+func Test512_LeafIndex_inverse_of_At(t *testing.T) {
+
+	// j=total number of leaves in the tree.
+	//for j := 1; j < 10_000; j++ { // 42 sec
+	for j := 1; j < 500; j++ { // 0.10 sec
+
+		//if j%100 == 0 {
+		//	//vv("on j = %v", j)
+		//}
+
+		tree := NewArtTree()
+
+		var seed32 [32]byte
+		chacha8 := mathrand2.NewChaCha8(seed32)
+
+		var sorted [][]byte
+		var N uint64 = 100000 // domain for leaf keys.
+
+		// j = number of leaves in the tree.
+
+		used := make(map[int]bool) // tree may dedup, but sorted needs too.
+		for range j {
+			r := int(chacha8.Uint64() % N)
+			if used[r] {
+				continue
+			}
+			used[r] = true
+			sorted = append(sorted, []byte(fmt.Sprintf("%06d", r)))
+		}
+		sort.Sort(sliceByteSlice(sorted))
+
+		var lastLeaf *Leaf
+		_ = lastLeaf
+		for i, w := range sorted {
+
+			key2 := Key(append([]byte{}, w...))
+			lf := NewLeaf(key2, key2, nil)
+			if tree.InsertLeaf(lf) {
+				// make sure leaves are unique.
+				t.Fatalf("i=%v, could not add '%v', already in tree", i, string(w))
+			}
+			lastLeaf = lf
+		}
+
+		//vv("verifying SubN after removal")
+		sz := tree.Size()
+
+		//vv("starting tree = '%v'", tree)
+
+		for i := range sz {
+			lf, ok := tree.At(i)
+			if !ok {
+				panic(fmt.Sprintf("missing leaf!?! j=%v; i=%v not ok", j, i))
+			}
+			j, ok := tree.LeafIndex(lf)
+			if !ok || j != i {
+				t.Fatalf("want ok=true, j=i=%v; got ok=%v; j=%v", i, ok, j)
+			}
+			// test Atv too.
+			val, ok2 := tree.Atv(i)
+			if !ok2 {
+				panic(fmt.Sprintf("missing leaf!?! j=%v; i=%v not ok2", j, i))
+			}
+			got := string(lf.Key)
+			want := string(sorted[i])
+			if got != want {
+				panic(fmt.Sprintf("at j=%v; i=%v, want '%v'; got '%v'", j, i, want, got))
+			}
+			got2 := string(val.(Key))
+			if got2 != want {
+				panic(fmt.Sprintf("at j=%v; i=%v, want '%v'; got2 '%v'", j, i, want, got2))
+			}
+		}
+	}
+}

@@ -290,7 +290,9 @@ func (n *Inner) get(key Key, depth int, selfb *bnode) (value *bnode, found bool,
 
 	//pp("about to call next.get on next = '%v' with inquiry '%v'", next.FlatString(nextDepth+1, 0), string(key[:nextDepth]))
 
-	return next.get(key, nextDepth+1, next)
+	value, found, dir, id = next.get(key, nextDepth+1, next)
+	id += n.sumSubNTo(next)
+	return
 }
 
 func memcpy[T any](dst []T, src []T, len int) {
