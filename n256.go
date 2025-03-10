@@ -149,6 +149,19 @@ func (n *node256) full() bool {
 func (n *node256) addChild(k byte, child *bnode) {
 	n.children[k] = child
 	n.lth++
+	n.redoPren()
+}
+
+// update pren cache of cumulative SubN
+func (n *node256) redoPren() {
+	tot := 0
+	for _, ch := range n.children {
+		if ch == nil {
+			continue
+		}
+		ch.pren = tot
+		tot += ch.subn()
+	}
 }
 
 func (n *node256) grow() Inode {

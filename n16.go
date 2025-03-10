@@ -182,6 +182,19 @@ func (n *node16) addChild(k byte, child *bnode) {
 	n.keys[idx] = k
 	n.children[idx] = child
 	n.lth++
+	n.redoPren()
+}
+
+// update pren cache of cumulative SubN
+func (n *node16) redoPren() {
+	tot := 0
+	for i, ch := range n.children {
+		if i >= n.lth {
+			break
+		}
+		ch.pren = tot
+		tot += ch.subn()
+	}
 }
 
 func (n *node16) grow() Inode {

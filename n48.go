@@ -158,10 +158,24 @@ func (n *node48) addChild(k byte, child *bnode) {
 			n.keys[k] = uint16(idx + 1)
 			n.children[idx] = child
 			n.lth++
+			n.redoPren()
 			return
 		}
 	}
 	panic("no empty slots")
+}
+
+// update pren cache of cumulative SubN
+func (n *node48) redoPren() {
+	tot := 0
+	for _, idx := range n.keys {
+		if idx == 0 {
+			continue
+		}
+		ch := n.children[idx-1]
+		ch.pren = tot
+		tot += ch.subn()
+	}
 }
 
 func (n *node48) grow() Inode {

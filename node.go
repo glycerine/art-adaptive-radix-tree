@@ -55,6 +55,7 @@ type bnode struct {
 	leaf   *Leaf
 	inner  *Inner
 	isLeaf bool
+	pren   int
 }
 
 func (a *bnode) Kind() Kind {
